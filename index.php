@@ -115,7 +115,7 @@ include './connection.php';
                                         </h5>
                                         <p class="text-sm"><span class="op-6">Posted at</span> <a class="text-black" href="#post-id-' . $row['pID'] . '">' . $row['time'] . '</a> <span class="op-6"> by</span> <a class="text-black"
                                                 href="./profile/index.php?user=' . $row['userID'] . '">' . $row['userID'] . '</a></p>
-                                        <div class="text-sm op-5"> <a class="text-black mr-2" href="./index.php?tag=' . $row['tName'] . '">#' . $row['tName'] . '</a></div>
+                                        <div class="text-sm op-5"> <a class="text-black mr-2" href="./index.php?topic=' . $row['tName'] . '">#' . $row['tName'] . '</a></div>
                                     </div>
                                     <div class="col-md-4 op-7">
                                         <div class="row text-center op-7">

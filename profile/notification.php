@@ -95,7 +95,7 @@ $result = mysqli_query($conn, $sql);
                                         <a href="' . $root . $row['link'] . '">' . $row['details'] . '</a>
                                         <span class="badge bg-primary rounded-pill">' . $row['time'] . '</span>
                                     </div>
-                                    <form action="notification.php?user=' . $username . '" method="POST">
+                                    <form action="notification?user=' . $username . '" method="POST">
                                         <input type="hidden" name="notifID" value="' . $row['id'] . '">
                                         ' . $showBtnCheck . '
                                     </form>

@@ -61,6 +61,7 @@ include '../connection.php';
                 // if no error, show success
                 echo '<div class="alert alert-success" role="alert">Successfully Logged in, will redirect to main page in 3 seconds</div>';
                 // redirect to login in 3 secs
+                // header('url=../index.php');
                 header('refresh: 3; url=../index.php');
             }
         }
@@ -79,7 +80,7 @@ include '../connection.php';
                         </figcaption>
                     </div>
                     <div class="panel-body">
-                        <form action="login.php" method="post">
+                        <form action="" method="post">
                             <div class="form-group">
                                 <label for="username">Username</label>
                                 <input type="username" class="form-control" name="username" id="username"
