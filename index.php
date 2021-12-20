@@ -46,6 +46,12 @@ include './connection.php';
                                         $topic = $_GET['topic'];
 
                                         echo '<option value="./index.php?topic=' . $topic . '" selected hidden>' . $topic . '</option>';
+                                    } else
+                                    if (isset($_GET['by'])) {
+                                        // if found, get the value
+                                        $by = $_GET['by'];
+
+                                        echo '<option value="./index.php?by=' . $by . '" selected hidden>Seeing post made by ' . $by . '</option>';
                                     }
 
                                     // get all topics from db
@@ -91,6 +97,40 @@ include './connection.php';
                         t.id as tID,
                         t.name as tName 
                         FROM post as p JOIN topic as t on t.id = p.id ORDER BY time DESC;";
+
+                    // check for get request "by" which indicates user id
+                    if (isset($_GET['by'])) {
+                        // if found, get the value
+                        $by = $_GET['by'];
+
+                        // get user name from db
+                        // get all posts from db
+                        $sql = 'SELECT 
+                            p.id as pID, 
+                            p.title as title, 
+                            p.content as content,
+                            p.time as time,
+                            p.userID as userID,
+                            t.id as tID,
+                            t.name as tName 
+                            FROM post as p JOIN topic as t on t.id = p.id and userID="' . $by . '" ORDER BY time DESC;';
+                    } else 
+                    if (isset($_GET['topic'])) {
+                        // if found, get the value
+                        $topic = $_GET['topic'];
+
+                        // get all posts from db
+                        $sql = 'SELECT 
+                            p.id as pID, 
+                            p.title as title, 
+                            p.content as content,
+                            p.time as time,
+                            p.userID as userID,
+                            t.id as tID,
+                            t.name as tName 
+                            FROM post as p JOIN topic as t on t.id = p.id and t.name="' . $topic . '" ORDER BY time DESC;';
+                    }
+
                     $result = mysqli_query($conn, $sql);
                     if (!$result) {
                         echo "Error: " . mysqli_error($conn);
@@ -111,7 +151,7 @@ include './connection.php';
                                 <div class="row align-items-center">
                                     <div class="col-md-8 mb-3 mb-sm-0" id="post-id-' . $row['pID'] . '">
                                         <h5>
-                                            <a href="#" class="text-primary">' . $row['title'] . '</a>
+                                            <a href="./post/?id=' . $row['pID'] . '" class="text-primary">' . $row['title'] . '</a>
                                         </h5>
                                         <p class="text-sm"><span class="op-6">Posted at</span> <a class="text-black" href="#post-id-' . $row['pID'] . '">' . $row['time'] . '</a> <span class="op-6"> by</span> <a class="text-black"
                                                 href="./profile/index.php?user=' . $row['userID'] . '">' . $row['userID'] . '</a></p>
@@ -139,52 +179,7 @@ include './connection.php';
                     }
 
                     ?>
-                    <div
-                        class="card row-hover pos-relative py-3 px-3 mb-3 border-primary border-top-1 border-right-1 border-bottom-1 rounded-0">
-                        <div class="row align-items-center">
-                            <div class="col-md-8 mb-3 mb-sm-0">
-                                <h5>
-                                    <a href="#" class="text-primary">HELP! My Windows XP machine is down</a>
-                                </h5>
-                                <p class="text-sm"><span class="op-6">Posted</span> <a class="text-black" href="#">54
-                                        minutes</a> <span class="op-6">ago by</span> <a class="text-black"
-                                        href="#">DanielD</a></p>
-                                <div class="text-sm op-5"> <a class="text-black mr-2" href="#">#Development</a> <a
-                                        class="text-black mr-2" href="#">#AppStrap Theme</a> </div>
-                            </div>
-                            <div class="col-md-4 op-7">
-                                <div class="row text-center op-7">
-                                    <div class="col px-1"> </div>
-                                    <div class="col px-1"> </div>
-                                    <div class="col px-1"> <i class="ion-ios-chatboxes-outline icon-1x"></i> <span
-                                            class="d-block text-sm">251 Replies</span></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div
-                        class="card row-hover pos-relative py-3 px-3 mb-3 border-primary border-top-1 border-right-1 border-bottom-1 rounded-0">
-                        <div class="row align-items-center">
-                            <div class="col-md-8 mb-3 mb-sm-0">
-                                <h5>
-                                    <a href="#" class="text-primary">HELP! My Windows XP machine is down</a>
-                                </h5>
-                                <p class="text-sm"><span class="op-6">Posted</span> <a class="text-black" href="#">54
-                                        minutes</a> <span class="op-6">ago by</span> <a class="text-black"
-                                        href="#">DanielD</a></p>
-                                <div class="text-sm op-5"> <a class="text-black mr-2" href="#">#Development</a> <a
-                                        class="text-black mr-2" href="#">#AppStrap Theme</a> </div>
-                            </div>
-                            <div class="col-md-4 op-7">
-                                <div class="row text-center op-7">
-                                    <div class="col px-1"> </div>
-                                    <div class="col px-1"> </div>
-                                    <div class="col px-1"> <i class="ion-ios-chatboxes-outline icon-1x"></i> <span
-                                            class="d-block text-sm">251 Replies</span></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
                 <!-- Sidebar content -->
                 <div class="col-lg-3 mb-4 mb-lg-0 px-lg-0 mt-lg-0">
