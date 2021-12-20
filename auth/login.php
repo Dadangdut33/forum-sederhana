@@ -56,6 +56,7 @@ include '../connection.php';
                     }
                 }
             }
+
             if (!isset($error)) {
                 // if no error, show success
                 echo '<div class="alert alert-success" role="alert">Successfully Logged in, will redirect to main page in 3 seconds</div>';

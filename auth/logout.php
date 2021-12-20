@@ -14,7 +14,7 @@ if (isset($_SESSION['email'])) {
     echo '<div class="alert alert-success" role="alert">Successfully Logged out, will redirect to main page in 3 seconds</div>';
 
     // redirect to main page
-    header('refresh: 3; Location: ../index.php');
+    header('Location: ../index.php');
 } else {
     // if not logged in, then redirect to login page
     header('location: login.php');

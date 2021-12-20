@@ -222,17 +222,29 @@ include './connection.php';
                                 $row = mysqli_fetch_assoc($result);
                                 $total = $row['total'];
 
+                                // get amount of user notifcations
+                                $sql = "SELECT COUNT(*) AS total FROM notification WHERE userId = '" . $_SESSION['username'] . "' AND isRead = 0";
+                                $result = mysqli_query($conn, $sql);
+                                $row = mysqli_fetch_assoc($result);
+                                $totalNotif = $row['total'];
+
                                 // if user is logged in, show the logout button
                                 echo '<div class="bg-white text-sm">
                                 <h4 class="px-3 py-4 op-5 m-0 roboto-bold">
-                                    Profile
+                                    Your Profile
                                 </h4>
                                 <hr class="my-0">
                                 <div class="row text-center d-flex flex-row op-7 mx-0">
                                     <div class="col-sm-6 col flex-ew text-center py-3 border-bottom mx-0"> <a
                                             class="d-block lead font-weight-bold" href="./index.php?by=' . $_SESSION['username'] . '">' . $total . '</a> Posts </div>
                                     <div class="col-sm-6 col flex-ew text-center py-3 border-bottom mx-0"> <a
-                                            class="d-block lead font-weight-bold" href="./profile/index.php?user=' . $_SESSION['username'] . '">' . $_SESSION['username'] . '</a> User </div>
+                                            class="d-block lead font-weight-bold" href="./profile/notification.php?user=' . $_SESSION['username'] . '">' . $totalNotif . '</a> Unread Notification </div>
+                                </div>
+                                <div class="row text-center d-flex flex-row op-7 mx-0">
+                                <div class="col-sm-6 col flex-ew text-center py-3 border-bottom mx-0"> <a
+                                        class="d-block lead font-weight-bold" href="./profile/index.php?user=' . $_SESSION['username'] . '">' . $_SESSION['username'] . '</a> User </div>
+                                    <div class="col-sm-6 col flex-ew text-center py-3 border-bottom mx-0"> <a
+                                            class="d-block lead font-weight-bold" href=""></a></div>
                                 </div>';
                             }
                             ?>

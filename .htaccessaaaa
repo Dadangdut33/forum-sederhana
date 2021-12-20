@@ -1,0 +1,35 @@
+# ERROR WILL FIX LATER
+
+# Disable directory browsing 
+Options -Indexes
+
+# Deny access to .htaccess
+<Files .htaccess>
+Order allow,deny
+Deny from all
+</Files>
+
+# Deny access to filenames starting with dot(.)
+<FilesMatch "^\.">
+Order allow,deny
+Deny from all
+</FilesMatch>
+
+# Deny access to files with extensions .ini, .psd, .log, .sh .json .lock .md
+<FilesMatch "\.(ini|psd|log|sh|json|lock|md)$">
+Order allow,deny
+Deny from all
+</FilesMatch>
+
+# Removing .php Extension from URL
+RewriteEngine on
+RewriteCond %{THE_REQUEST} /([^.]+)\.php [NC]
+RewriteRule ^ /%1 [NC,L,R]
+
+# Redirect for complete URL
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^ %{REQUEST_URI}.php [NC,L]
+
+# Return 404 if original request is .php (which probably could not happen anyways)
+RewriteCond %{THE_REQUEST} "^[^ ]* .*?\.php[? ].*$"
+RewriteRule .* - [L,R=404]
