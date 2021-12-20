@@ -9,4 +9,8 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-$root = 'http://' . $_SERVER['HTTP_HOST'] . '/forum_sederhana/';
+if ($DEBUG) {
+    $root = 'http://' . $_SERVER['HTTP_HOST'] . '/forum_sederhana/';
+} else {
+    $root = "/";
+}

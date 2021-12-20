@@ -90,7 +90,7 @@ include './connection.php';
                         p.userID as userID,
                         t.id as tID,
                         t.name as tName 
-                        FROM post as p JOIN topic as t on t.id = p.id;";
+                        FROM post as p JOIN topic as t on t.id = p.id ORDER BY time DESC;";
                     $result = mysqli_query($conn, $sql);
                     if (!$result) {
                         echo "Error: " . mysqli_error($conn);

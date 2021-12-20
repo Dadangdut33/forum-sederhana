@@ -19,7 +19,7 @@ include '../connection.php';
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
     <link rel="stylesheet" href="../index.css">
-    <title>Register</title>
+    <title>Login</title>
 </head>
 
 <body>
