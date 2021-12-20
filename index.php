@@ -4,6 +4,10 @@
 <?php
 // session
 session_start();
+
+// include db connect
+include './connection.php';
+
 ?>
 
 <head>
@@ -16,17 +20,15 @@ session_start();
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
-    <!-- include index.css -->
     <link rel="stylesheet" href="index.css">
 
     <title>Forum Sederhana</title>
 </head>
 
 <body>
-    <main>
+    <main style="margin-top: 150px">
         <div class="container">
             <div class="row">
-                <!-- Main content -->
                 <div class="col-lg-9 mb-3">
                     <div class="row text-left mb-5">
                         <div class="col-lg-6 mb-3 mb-sm-0">
@@ -34,27 +36,36 @@ session_start();
                                 style="width: 100%;">
                                 <select class="form-control form-control-lg bg-white bg-op-9 text-sm w-lg-50"
                                     data-toggle="select" tabindex="-98">
-                                    <option> Categories </option>
+                                    <option> Topic </option>
                                     <option> Games </option>
                                     <option> Science </option>
                                     <option> Tech </option>
+                                    <option> Random Discussion </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 text-lg-right">
+                            <div class="dropdown bootstrap-select form-control form-control-lg bg-white bg-op-9 ml-auto text-sm w-lg-50"
+                                style="width: 100%;">
+                                <select class="form-control form-control-lg bg-white bg-op-9 ml-auto text-sm w-lg-50"
+                                    data-toggle="select" tabindex="-98" disabled>
+                                    <option id="time"> Date Time </option>
                                 </select>
                             </div>
                         </div>
                     </div>
                     <div
-                        class="card row-hover pos-relative py-3 px-3 mb-3 border-warning border-top-0 border-right-0 border-bottom-0 rounded-0">
+                        class="card row-hover pos-relative py-3 px-3 mb-3 border-primary border-top-1 border-right-1 border-bottom-1 rounded-0">
                         <div class="row align-items-center">
                             <div class="col-md-8 mb-3 mb-sm-0">
                                 <h5>
-                                    <a href="#" class="text-primary">Drupal 8 quick starter guide</a>
+                                    <a href="#" class="text-primary">HELP! My Windows XP machine is down</a>
                                 </h5>
-                                <p class="text-sm"><span class="op-6">Posted</span> <a class="text-black" href="#">20
+                                <p class="text-sm"><span class="op-6">Posted</span> <a class="text-black" href="#">54
                                         minutes</a> <span class="op-6">ago by</span> <a class="text-black"
-                                        href="#">KenyeW</a></p>
-                                <div class="text-sm op-5"> <a class="text-black mr-2" href="#">#C++</a> <a
-                                        class="text-black mr-2" href="#">#AppStrap Theme</a> <a class="text-black mr-2"
-                                        href="#">#Wordpress</a> </div>
+                                        href="#">DanielD</a></p>
+                                <div class="text-sm op-5"> <a class="text-black mr-2" href="#">#Development</a> <a
+                                        class="text-black mr-2" href="#">#AppStrap Theme</a> </div>
                             </div>
                             <div class="col-md-4 op-7">
                                 <div class="row text-center op-7">
@@ -67,7 +78,7 @@ session_start();
                         </div>
                     </div>
                     <div
-                        class="card row-hover pos-relative py-3 px-3 mb-3 border-primary border-top-0 border-right-0 border-bottom-0 rounded-0">
+                        class="card row-hover pos-relative py-3 px-3 mb-3 border-primary border-top-1 border-right-1 border-bottom-1 rounded-0">
                         <div class="row align-items-center">
                             <div class="col-md-8 mb-3 mb-sm-0">
                                 <h5>
@@ -98,14 +109,17 @@ session_start();
                     <div data-settings="{&quot;parent&quot;:&quot;#content&quot;,&quot;mind&quot;:&quot;#header&quot;,&quot;top&quot;:10,&quot;breakpoint&quot;:992}"
                         data-toggle="sticky" class="sticky" style="top: 85px;">
                         <div class="sticky-inner">
+                            <h1 class="btn btn-lg btn-block btn-success rounded-0 py-4 mb-3 bg-op-6 roboto-bold"
+                                style="margin-bottom: 32px !important;" onclick="window.location.href='./'">Forum
+                                Sederhana</h1>
                             <div class="bg-white mb-3">
                                 <div class="pos-relative px-3 py-3">
                                     <?php
                                     // check if user is logged in or not
-                                    if (isset($_SESSION['user_id'])) {
+                                    if (isset($_SESSION['username'])) {
                                         // if user is logged in, show the logout button
                                         echo '<a href="post/create.php" class="btn btn-outline-primary btn-block rounded-0 py-3 mb-3 bg-op-6 roboto-bold">Create Post</a>';
-                                        echo '<a href="auth/logout.php" class="btn btn-outline-primary btn-block rounded-0 py-3 mb-3 bg-op-6 roboto-bold" style="background-color: red !important;">Logout</a>';
+                                        echo '<a href="auth/logout.php" class="btn btn-outline-primary btn-block rounded-0 py-3 mb-3 bg-op-6 roboto-bold" style="background-color: #ff4300 !important; margin-left: 5px;">Logout</a>';
                                     } else {
                                         // if user is not logged in, show the login button
                                         echo '<a href="auth/login.php" class="btn btn-outline-primary btn-block rounded-0 py-3 mb-3 bg-op-6 roboto-bold">Login</a>';
@@ -116,7 +130,13 @@ session_start();
                             </div>
                             <?php
                             // check if user is logged in or not
-                            if (isset($_SESSION['user_id'])) {
+                            if (isset($_SESSION['username'])) {
+                                // get amount of user posts
+                                $sql = "SELECT COUNT(*) AS total FROM post WHERE userId = '" . $_SESSION['username'] . "'";
+                                $result = mysqli_query($conn, $sql);
+                                $row = mysqli_fetch_assoc($result);
+                                $total = $row['total'];
+
                                 // if user is logged in, show the logout button
                                 echo '<div class="bg-white text-sm">
                                 <h4 class="px-3 py-4 op-5 m-0 roboto-bold">
@@ -124,17 +144,10 @@ session_start();
                                 </h4>
                                 <hr class="my-0">
                                 <div class="row text-center d-flex flex-row op-7 mx-0">
-                                    <div class="col-sm-6 flex-ew text-center py-3 border-bottom border-right"> <a
-                                            class="d-block lead font-weight-bold" href="#">58</a> Topics </div>
                                     <div class="col-sm-6 col flex-ew text-center py-3 border-bottom mx-0"> <a
-                                            class="d-block lead font-weight-bold" href="#">1.856</a> Posts </div>
-                                </div>
-                                <div class="row d-flex flex-row op-7">
-                                    <div class="col-sm-6 flex-ew text-center py-3 border-right mx-0"> <a
-                                            class="d-block lead font-weight-bold" href="#">300</a> Members </div>
-                                    <div class="col-sm-6 flex-ew text-center py-3 mx-0"> <a
-                                            class="d-block lead font-weight-bold" href="#">DanielD</a> Newest Member
-                                    </div>
+                                            class="d-block lead font-weight-bold" href="./index.php?by=' . $_SESSION['username'] . '">' . $total . '</a> Posts </div>
+                                    <div class="col-sm-6 col flex-ew text-center py-3 border-bottom mx-0"> <a
+                                            class="d-block lead font-weight-bold" href="./profile/index.php?user=' . $_SESSION['username'] . '">' . $_SESSION['username'] . '</a> User </div>
                                 </div>';
                             }
                             ?>
@@ -144,6 +157,35 @@ session_start();
             </div>
         </div>
     </main>
+
+    <script>
+    function checkTime(i) {
+        if (i < 10) {
+            i = "0" + i;
+        }
+        return i;
+    }
+
+    var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    var today, day, h, m, s;
+
+    function startTime() {
+        today = new Date();
+        day = days[today.getDay()];
+        h = today.getHours();
+        m = today.getMinutes();
+        s = today.getSeconds();
+        // add a zero in front of numbers<10
+        m = checkTime(m);
+        s = checkTime(s);
+        document.getElementById('time').innerHTML = day + ", " + h + ":" + m + ":" + s;
+    }
+    startTime()
+
+    setInterval(function() {
+        startTime()
+    }, 500);
+    </script>
 
 </body>
 
