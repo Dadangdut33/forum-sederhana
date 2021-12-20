@@ -82,7 +82,15 @@ include './connection.php';
                     </div>
                     <?php
                     // get all posts from db
-                    $sql = "SELECT * FROM post";
+                    $sql = "SELECT 
+                        p.id as pID, 
+                        p.title as title, 
+                        p.content as content,
+                        p.time as time,
+                        p.userID as userID,
+                        t.id as tID,
+                        t.name as tName 
+                        FROM post as p JOIN topic as t on t.id = p.id;";
                     $result = mysqli_query($conn, $sql);
                     if (!$result) {
                         echo "Error: " . mysqli_error($conn);
@@ -92,32 +100,22 @@ include './connection.php';
                     if ($resultCheck > 0) {
                         while ($row = mysqli_fetch_assoc($result)) {
                             // get the number of comments of each post
-                            $post_id = $row['id'];
+                            $post_id = $row['pID'];
                             $sql_comment = "SELECT * FROM comment WHERE postID = '$post_id'";
                             $result_comment = mysqli_query($conn, $sql_comment);
                             $result_comment_totals = mysqli_num_rows($result_comment);
-
-                            // echo error
-                            if (!$result_comment) {
-                            }
-
-                            // get topic name of the post
-                            $topic_id = $row['topicID'];
-                            $sql_topic = "SELECT * FROM topic WHERE id = '$topic_id'";
-                            $result_topic = mysqli_query($conn, $sql_topic);
-                            $result_topic_name = mysqli_fetch_assoc($result_topic);
 
                             echo '
                             <div
                                 class="card row-hover pos-relative py-3 px-3 mb-3 border-primary border-top-1 border-right-1 border-bottom-1 rounded-0">
                                 <div class="row align-items-center">
-                                    <div class="col-md-8 mb-3 mb-sm-0" id="post-id-' . $row['id'] . '">
+                                    <div class="col-md-8 mb-3 mb-sm-0" id="post-id-' . $row['pID'] . '">
                                         <h5>
                                             <a href="#" class="text-primary">' . $row['title'] . '</a>
                                         </h5>
-                                        <p class="text-sm"><span class="op-6">Posted at</span> <a class="text-black" href="#post-id-' . $row['id'] . '">' . $row['time'] . '</a> <span class="op-6"> by</span> <a class="text-black"
+                                        <p class="text-sm"><span class="op-6">Posted at</span> <a class="text-black" href="#post-id-' . $row['pID'] . '">' . $row['time'] . '</a> <span class="op-6"> by</span> <a class="text-black"
                                                 href="./profile/index.php?user=' . $row['userID'] . '">' . $row['userID'] . '</a></p>
-                                        <div class="text-sm op-5"> <a class="text-black mr-2" href="./index.php?tag=' . $result_topic_name['name'] . '">#' . $result_topic_name['name'] . '</a></div>
+                                        <div class="text-sm op-5"> <a class="text-black mr-2" href="./index.php?tag=' . $row['tName'] . '">#' . $row['tName'] . '</a></div>
                                     </div>
                                     <div class="col-md-4 op-7">
                                         <div class="row text-center op-7">
