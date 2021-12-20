@@ -45,3 +45,7 @@ a.text-primary:hover {
 .center-vertical-horizontal {
     margin: 150px auto;
 }
+
+#no-num-before::before {
+    content: none !important;
+}
