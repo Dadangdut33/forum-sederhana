@@ -20,6 +20,8 @@ include './connection.php';
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="index.css">
 
     <title>Forum Sederhana</title>
@@ -35,16 +37,40 @@ include './connection.php';
                             <div class="dropdown bootstrap-select form-control form-control-lg bg-white bg-op-9 text-sm w-lg-50"
                                 style="width: 100%;">
                                 <select class="form-control form-control-lg bg-white bg-op-9 text-sm w-lg-50"
-                                    data-toggle="select" tabindex="-98">
-                                    <option> Topic </option>
-                                    <option> Games </option>
-                                    <option> Science </option>
-                                    <option> Tech </option>
-                                    <option> Random Discussion </option>
+                                    data-toggle="select" tabindex="-98" id="dynamic_select">
+                                    <option value="./index.php"> All </option>
+                                    <?php
+                                    // check for GET request named "topic"
+                                    if (isset($_GET['topic'])) {
+                                        // if found, get the value
+                                        $topic = $_GET['topic'];
+
+                                        echo '<option value="./index.php?topic=' . $topic . '" selected hidden>' . $topic . '</option>';
+                                    }
+
+                                    // get all topics from db
+                                    $sql = "SELECT * FROM topic";
+                                    $result = mysqli_query($conn, $sql);
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        echo '<option value="./index.php?topic=' . $row['name'] . ' "> ' . $row['name'] . '</option>';
+                                    }
+                                    ?>
                                 </select>
+                                <script>
+                                $(function() {
+                                    // bind change event to select
+                                    $('#dynamic_select').on('change', function() {
+                                        var url = $(this).val(); // get selected value
+                                        if (url) { // require a URL
+                                            window.location = url; // redirect
+                                        }
+                                        return false;
+                                    });
+                                });
+                                </script>
                             </div>
                         </div>
-                        <div class="col-lg-6 text-lg-right">
+                        <div class=" col-lg-6 text-lg-right">
                             <div class="dropdown bootstrap-select form-control form-control-lg bg-white bg-op-9 ml-auto text-sm w-lg-50"
                                 style="width: 100%;">
                                 <select class="form-control form-control-lg bg-white bg-op-9 ml-auto text-sm w-lg-50"
@@ -54,6 +80,67 @@ include './connection.php';
                             </div>
                         </div>
                     </div>
+                    <?php
+                    // get all posts from db
+                    $sql = "SELECT * FROM post";
+                    $result = mysqli_query($conn, $sql);
+                    if (!$result) {
+                        echo "Error: " . mysqli_error($conn);
+                    }
+                    $resultCheck = mysqli_num_rows($result);
+                    // echo all the posts
+                    if ($resultCheck > 0) {
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            // get the number of comments of each post
+                            $post_id = $row['id'];
+                            $sql_comment = "SELECT * FROM comment WHERE postID = '$post_id'";
+                            $result_comment = mysqli_query($conn, $sql_comment);
+                            $result_comment_totals = mysqli_num_rows($result_comment);
+
+                            // echo error
+                            if (!$result_comment) {
+                            }
+
+                            // get topic name of the post
+                            $topic_id = $row['topicID'];
+                            $sql_topic = "SELECT * FROM topic WHERE id = '$topic_id'";
+                            $result_topic = mysqli_query($conn, $sql_topic);
+                            $result_topic_name = mysqli_fetch_assoc($result_topic);
+
+                            echo '
+                            <div
+                                class="card row-hover pos-relative py-3 px-3 mb-3 border-primary border-top-1 border-right-1 border-bottom-1 rounded-0">
+                                <div class="row align-items-center">
+                                    <div class="col-md-8 mb-3 mb-sm-0" id="post-id-' . $row['id'] . '">
+                                        <h5>
+                                            <a href="#" class="text-primary">' . $row['title'] . '</a>
+                                        </h5>
+                                        <p class="text-sm"><span class="op-6">Posted</span> <a class="text-black" href="#post-id-' . $row['id'] . '">' . $row['time'] . '</a> <span class="op-6">ago by</span> <a class="text-black"
+                                                href="./profile/index.php?user=' . $row['userID'] . '">' . $row['userID'] . '</a></p>
+                                        <div class="text-sm op-5"> <a class="text-black mr-2" href="./index.php?tag=' . $result_topic_name['name'] . '">#' . $result_topic_name['name'] . '</a></div>
+                                    </div>
+                                    <div class="col-md-4 op-7">
+                                        <div class="row text-center op-7">
+                                            <div class="col px-1"> </div>
+                                            <div class="col px-1"> </div>
+                                            <div class="col px-1"> <i class="ion-ios-chatboxes-outline icon-1x"></i> <span
+                                                    class="d-block text-sm">' . $result_comment_totals . ' Replies</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            ';
+                        }
+                    } else {
+                        echo '<div
+                        class="card row-hover pos-relative py-3 px-3 mb-3 border-primary border-top-1 border-right-1 border-bottom-1 rounded-0">
+                        <div class="row align-items-center">
+                            <h1>No posts yet!</h1>
+                        </div>
+                    </div>';
+                    }
+
+                    ?>
                     <div
                         class="card row-hover pos-relative py-3 px-3 mb-3 border-primary border-top-1 border-right-1 border-bottom-1 rounded-0">
                         <div class="row align-items-center">
