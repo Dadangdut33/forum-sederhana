@@ -218,7 +218,7 @@ if (isset($_GET['id'])) {
                         <div class="d-flex justify-content-center">
                             <figcaption class="blockquote-footer" style="margin-top: 1px;" id="no-before">
                                 <i class="bi bi-person"></i> <a
-                                    href="../profile/user=<?php echo $user ?>"><?php echo $user ?></a>
+                                    href="../profile/?user=<?php echo $user ?>"><?php echo $user ?></a>
                                 <i class="bi bi-tag" style="padding-left: 5px;"></i> <a
                                     href="../topic/topic=<?php echo $topic ?>"><?php echo $topic ?></a>
                                 <i class="bi bi-clock" style="padding-left: 5px;"></i> <?php echo $time ?>
@@ -289,7 +289,7 @@ if (isset($_GET['id'])) {
                                     echo '<li class="list-group-item" id="comment-' . $cID . '">';
                                     echo '<div class="d-flex justify-content-between">';
                                     echo '<div class="d-flex justify-content-start">';
-                                    echo '<a href="../profile/user=' . $postUser . '">' . $postUser . '</a>';
+                                    echo '<a href="../profile/?user=' . $postUser . '">' . $postUser . '</a>';
                                     echo '</div>';
                                     echo '<div class="d-flex justify-content-end">';
                                     echo '<a href="?id=' . $postID . '#comment-' . $cID . '">' . $time . '</a>';
