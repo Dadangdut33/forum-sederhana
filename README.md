@@ -1,5 +1,6 @@
-# forum-sederhana
-Forum sederhana untuk UAS SBD
+# Forum Sederhana
+Fauzan Farhan Antoro - 11200910000004 \
+Forum sederhana untuk UAS SBD.
 
 # Repository link
 https://github.com/Dadangdut33/forum-sederhana
