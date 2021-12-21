@@ -235,10 +235,16 @@ include './connection.php';
                                 </div>
                                 <div class="row text-center d-flex flex-row op-7 mx-0">
                                 <div class="col-sm-6 col flex-ew text-center py-3 border-bottom mx-0"> <a
-                                        class="d-block lead font-weight-bold" href="./profile/index.php?user=' . $_SESSION['username'] . '">' . $_SESSION['username'] . '</a> User </div>
-                                    <div class="col-sm-6 col flex-ew text-center py-3 border-bottom mx-0"> <a
-                                            class="d-block lead font-weight-bold" href=""></a></div>
-                                </div>';
+                                        class="d-block lead font-weight-bold" href="./profile/index.php?user=' . $_SESSION['username'] . '">' . $_SESSION['username'] . '</a> User </div>';
+
+                                // check isAdmin or not
+                                if ($_SESSION['isAdmin'] == 1) {
+                                    echo '<div class="col-sm-6 col flex-ew text-center py-3 border-bottom mx-0"> <a
+                                        class="d-block lead font-weight-bold" href="./admin/index.php">Admin</a>Admin Menu</div>';
+                                } else {
+                                    echo '<div class="col-sm-6 col flex-ew text-center py-3 border-bottom mx-0"> <a
+                                        class="d-block lead font-weight-bold" href=""></a></div></div>';
+                                }
                             }
                             ?>
                         </div>
