@@ -36,6 +36,7 @@ if (mysqli_num_rows($result) > 0) {
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
     <link rel="stylesheet" href="../index.css">
+    <link rel="icon" href="../favicon.ico">
     <title><?php echo $username; ?>'s profile</title>
 </head>
 

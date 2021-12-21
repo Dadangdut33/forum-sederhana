@@ -23,6 +23,7 @@ include './connection.php';
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="index.css">
+    <link rel="icon" href="./favicon.ico">
 
     <title>Forum Sederhana</title>
 </head>

@@ -61,6 +61,7 @@ $result = mysqli_query($conn, $sql);
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
     <link rel="stylesheet" href="../index.css">
+    <link rel="icon" href="../favicon.ico">
     <title><?php echo $username ?>'s Notification</title>
 </head>
 
