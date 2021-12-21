@@ -40,6 +40,9 @@ if (!isset($_SESSION['isAdmin'])) {
                         <a href="../index.php" class="btn btn-primary btn-sm">
                             <i class="bi bi-arrow-left"></i> Go back home
                         </a>
+                        <a href="./add_topic.php" class="btn btn-primary btn-sm">
+                            <i class="bi bi-plus"></i> Add new tag
+                        </a>
                     </div>
                     <div class="panel-body">
                         <!-- echo table of tags -->
@@ -82,7 +85,7 @@ if (!isset($_SESSION['isAdmin'])) {
                                         echo '<th scope="row">' . $tag_id . '</th>';
                                         echo '<td>' . $tag . '</td>';
                                         echo '<td>' . $num_posts . '</td>';
-                                        echo '<td><a href="edit_tag.php?tag_id=' . $tag_id . '" class="btn btn-primary btn-sm">Edit</a> <a href="delete_tag.php?tag_id=' . $tag_id . '" class="btn btn-danger btn-sm">Delete</a></td>';
+                                        echo '<td><a href="edit_topic.php?id=' . $tag_id . '" class="btn btn-primary btn-sm">Edit</a> <a href="delete_tag.php?tag_id=' . $tag_id . '" class="btn btn-danger btn-sm">Delete</a></td>';
                                         echo '</tr>';
                                     }
                                 } else {
@@ -90,7 +93,7 @@ if (!isset($_SESSION['isAdmin'])) {
                                     echo '<th scope="row">0</th>';
                                     echo '<td>No topic</td>';
                                     echo '<td>0</td>';
-                                    echo '<td><a href="add_tag.php" class="btn btn-primary btn-sm">Add</a></td>';
+                                    echo '<td><a href="./add_topic.php" class="btn btn-primary btn-sm">Add</a></td>';
                                     echo '</tr>';
                                 }
                                 ?>
