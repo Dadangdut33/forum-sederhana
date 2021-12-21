@@ -33,6 +33,9 @@ session_start();
                         <div class="d-flex justify-content-center">
                             <h2>Page Not Found</h2>
                         </div>
+                        <div class="d-flex justify-content-center">
+                            <a href="index.php" class="btn btn-primary">Go Back to Home</a>
+                        </div>
                     </div>
                 </div>
             </div>
