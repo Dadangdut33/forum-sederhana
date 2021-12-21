@@ -225,7 +225,7 @@ if (isset($_GET['id'])) {
                                         reason: reason
                                     },
                                     success: function(data) {
-                                        alert("Post deleted sucessfully! " + data);
+                                        alert("Post deleted sucessfully! ");
                                         window.location.href = "../index.php";
                                     }
                                 });
@@ -327,6 +327,13 @@ if (isset($_GET['id'])) {
                                         </form>';
                                         }
                                     }
+                                    // check admin or not, if admin show delete button admin
+                                    if (isset($_SESSION['isAdmin'])) {
+                                        if ($_SESSION['isAdmin'] == 1) {
+                                            // echo admin delete 
+                                            echo '<a onclick="confirmDelAdmin(' . $cID . ')" class="btn btn-danger btn-sm" style="margin-left: 3px;"><i class="bi bi-trash"></i>Admin</a>';
+                                        }
+                                    }
                                     echo '</div>';
                                     echo '</div>';
                                     echo '<div class="d-flex justify-content-start">';
@@ -344,6 +351,33 @@ if (isset($_GET['id'])) {
                                 } else {
                                     return false;
                                 }
+                            }
+
+                            function confirmDelAdmin(id) {
+                                // prompt for reason
+                                var reason = prompt("Please enter the reason for deleting this post");
+                                if (reason == null) {
+                                    return;
+                                }
+                                if (reason == "") {
+                                    alert("You need to enter a valid reason!");
+                                    return;
+                                }
+
+                                //  send ajax jquery to ./deleteComment
+                                $.ajax({
+                                    type: "POST",
+                                    url: "./deleteComment",
+                                    data: {
+                                        id: id,
+                                        reason: reason
+                                    },
+                                    success: function(data) {
+                                        alert("Comment sucesfully deleted!");
+                                        window.location.reload();
+                                    }
+                                });
+
                             }
                             </script>
                         </ul>

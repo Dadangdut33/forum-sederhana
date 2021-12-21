@@ -5,19 +5,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-    </script>
-    <link rel="stylesheet" href="../index.css">
     <link rel="icon" href="../favicon.ico">
     <title>Delete comment</title>
 </head>
 
 <body>
-
+    babi
     <?php
     // session
     session_start();
@@ -28,6 +21,7 @@
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // get comment id
         $commentID = $_POST['id'];
+        $reason = $_POST['reason'];
 
         // verify that user is the same as the comment's user
         $sql = "SELECT * FROM comment WHERE id = '" . $commentID . "'";
@@ -38,20 +32,34 @@
             $commentUser = $row['userID'];
             $postID = $row['postID'];
         } else {
-
-            // 
             echo '<div class="alert alert-danger" role="alert">
         Error: Comment not found.
         </div>';
         }
 
         if ($_SESSION['username'] != $commentUser) {
-            header("Location: ../403.php");
+            // check isset session isAdmin
+            if (!isset($_SESSION['isAdmin'])) {
+                if ($_SESSION['isAdmin'] != 1) {
+                    header("Location: ../403.php");
+                    return;
+                }
+            }
         }
 
         // delete comment
         $sql = "DELETE FROM comment WHERE id = '$commentID'";
         $result = mysqli_query($conn, $sql);
+
+        // if reason is not empty, then send notification to comment's user
+        if ($reason != '') {
+            // check session admin or not
+            if ($_SESSION['isAdmin'] == 1) {
+                $sql = "INSERT INTO notification (userID, link, type, details) VALUES ('$commentUser', '#', 'Comment Deleted By Admin', '$reason')";
+                $result = mysqli_query($conn, $sql);
+            }
+        }
+
 
         // check result, if error print error
         if (!$result) {

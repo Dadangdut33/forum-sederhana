@@ -5,13 +5,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-    </script>
-    <link rel="stylesheet" href="../index.css">
     <link rel="icon" href="../favicon.ico">
     <title>Delete Post</title>
 </head>
@@ -44,7 +37,13 @@
         }
 
         if ($_SESSION['username'] != $postUser) {
-            header("Location: ../403.php");
+            // check isset session isAdmin
+            if (!isset($_SESSION['isAdmin'])) {
+                if ($_SESSION['isAdmin'] != 1) {
+                    header("Location: ../403.php");
+                    return;
+                }
+            }
         }
 
         // delete post
@@ -57,9 +56,6 @@
             if ($_SESSION['isAdmin'] == 1) {
                 $sql = "INSERT INTO notification (userID, link, type, details) VALUES ('$postUser', '#', 'Post Deleted By Admin', '$reason')";
                 $result = mysqli_query($conn, $sql);
-
-                // echo result
-                echo $result;
             }
         }
 
