@@ -64,19 +64,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($title == '') {
         echo '<div class="alert alert-danger" role="alert">Title cannot be empty!</div>';
     } else {
-        // update the post
-        $sql = "UPDATE post SET title = '$title', content = '$content', topicID = '$topic' WHERE id = '$id'";
-        $result = mysqli_query($conn, $sql);
-
-        // check result, if error print error
-        if (!$result) {
-            $error = 'Error: ' . mysqli_error($conn);
-            echo '<div class="alert alert-danger" role="alert">' . $error . '</div>';
+        // check if the content is empty
+        if ($content == '') {
+            echo '<div class="alert alert-danger" role="alert">Content cannot be empty!</div>';
         } else {
-            // alert success with javascript
-            echo '<script>alert("Post updated successfully!");</script>';
-            // redirect to the post
-            header("Location: ./?id=$id");
+            // check if the topic is empty
+            if ($topic == '') {
+                echo '<div class="alert alert-danger" role="alert">Topic cannot be empty!</div>';
+            } else {
+                // update the post
+                $sql = "UPDATE post SET title = '$title', content = '$content', topicID = '$topic' WHERE id = '$id'";
+                $result = mysqli_query($conn, $sql);
+
+                // check result, if error print error
+                if (!$result) {
+                    $error = 'Error: ' . mysqli_error($conn);
+                    echo '<div class="alert alert-danger" role="alert">' . $error . '</div>';
+                } else {
+                    // alert success with javascript
+                    echo '<script>alert("Post updated successfully!");</script>';
+                    // redirect to the post
+                    header("Location: ./?id=$id");
+                }
+            }
         }
     }
 }

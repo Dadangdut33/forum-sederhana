@@ -173,7 +173,8 @@ if (isset($_GET['id'])) {
                             <div class="form-group">
                                 <!-- if user is logged in -->
                                 <textarea class="form-control" name="comment" id="comment" rows="8"
-                                    placeholder="Write your comment here..." minlength="10" maxlength="1000"></textarea>
+                                    placeholder="Write your comment here..." minlength="10" maxlength="1000"
+                                    required></textarea>
                                 <!-- if not logged in -->
                                 <?php
                                 if (!isset($_SESSION['username'])) {
