@@ -14,38 +14,17 @@ if (!isset($_SESSION['isAdmin'])) {
     }
 }
 
-// must be get id, if no get then 404
-if (!isset($_GET['id'])) {
-    header("Location: ../404.php");
-} else {
-    $id = $_GET['id'];
-}
-
 // conn
 include '../connection.php';
 
-// query for the Topic detail
-$sql = "SELECT * FROM topic WHERE id = '$id'";
-$result = mysqli_query($conn, $sql);
-
-// echo error
-if (!$result) {
-    echo mysqli_error($conn);
-}
-
-$result = mysqli_fetch_assoc($result);
-
-// save to var
-$topic = $result['name'];
 
 // check for POST request
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // get the data
     $name = $_POST['name'];
-    $id = $_POST['id'];
 
-    // update the topic
-    $sql = "UPDATE topic SET name = '$name' WHERE id = '$id'";
+    // insert the new tag
+    $sql = "INSERT INTO topic (name) VALUES ('$name')";
     $result = mysqli_query($conn, $sql);
 
     // check result, if error print error
@@ -72,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </script>
     <link rel="stylesheet" href="../index.css">
     <link rel="icon" href="../favicon.ico">
-    <title>Edit Topic</title>
+    <title>Add Topic</title>
 </head>
 
 <body>
@@ -85,17 +64,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <i class="bi bi-arrow-left"></i> Go back to Topic/Tag Menu
                         </a>
                         <div class="text-center">
-                            <h3>Edit</h3>
+                            <h3>Add Topic</h3>
                         </div>
                     </div>
                     <div class="panel-body">
-                        <form action="?id=<?php echo $id ?>" method="POST">
+                        <form action="" method="POST">
                             <div class="form-group">
                                 <label for="name">Topic</label>
-                                <input type="text" class="form-control" id="name" name="name"
-                                    value="<?php echo $topic; ?>">
+                                <input type="text" class="form-control" id="name" name="name" required>
                             </div>
-                            <input type="hidden" name="id" value="<?php echo $id; ?>">
                             <button type="submit" class="btn btn-primary" style="margin-top:5px;">Submit</button>
                         </form>
                     </div>

@@ -121,7 +121,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <a href="./?id=<?php echo $id ?>" class="btn btn-primary btn-sm">
                             <i class="bi bi-arrow-left"></i> Go back to the post
                         </a>
-                        <h3 class="panel-title">Create Post</h3>
+                        <div class="text-center">
+                            <h3 class="panel-title">Edit Post</h3>
+                        </div>
                     </div>
                     <div class="panel-body">
                         <form action="" method="post">
@@ -158,8 +160,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <div class="d-flex justify-content-center">
                                 <button type="submit" class="btn btn-primary center"
                                     style="margin-top: 10px;">Post</button>
-                                <button onclick="window.location.reload()" class="btn btn-primary center"
-                                    style="margin-top: 10px; margin-left: 10px;">Cancel</button>
+                                <a href="./?id=<?php echo $id; ?>" class="btn btn-secondary"
+                                    style="margin-top: 10px; margin-left: 10px;">Cancel</a>
                             </div>
                         </form>
                         <script>

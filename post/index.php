@@ -283,7 +283,9 @@ if (isset($_GET['id'])) {
                             if (isset($_SESSION['username'])) {
                                 echo '<input type="hidden" name="postID" value="' . $id . '">
                                     <input type="hidden" name="username" value="' . $_SESSION['username'] . '">
-                                    <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Submit</button>';
+                                    <div class="text-center">
+                                    <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Submit</button>
+                                    </div>';
                             }
                             ?>
                         </form>

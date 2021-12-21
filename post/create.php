@@ -70,7 +70,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <a href="../index.php" class="btn btn-primary btn-sm">
                             <i class="bi bi-arrow-left"></i> Go back home
                         </a>
-                        <h3 class="panel-title">Create Post</h3>
+                        <div class="text-center">
+                            <h3 class="panel-title">Create Post</h3>
+                        </div>
                     </div>
                     <div class="panel-body">
                         <form action="" method="post">

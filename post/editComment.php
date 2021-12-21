@@ -104,7 +104,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="row bg-white">
                 <div class="row">
                     <div class="col-md-12">
-                        <h1>Edit Comment</h1>
+                        <div class="text-center">
+                            <h1 class="panel-title" style="margin-top:5px;">Edit Comment</h1>
+                        </div>
                         <form action="" method="post">
                             <div class="form-group">
                                 <label for="content">Content</label>
@@ -113,7 +115,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             </div>
                             <input type="hidden" name="id" value="<?php echo $id; ?>">
                             <input type="hidden" name="postID" value="<?php echo $postID; ?>">
-                            <button type="submit" class="btn btn-primary" style="margin-top:5px;">Submit</button>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary" style="margin-top:5px;">Submit</button>
+                                <a href="./?id=<?php echo $postID; ?>" class="btn btn-secondary"
+                                    style="margin-top:5px;">Cancel</a>
+                            </div>
                         </form>
                     </div>
                 </div>
