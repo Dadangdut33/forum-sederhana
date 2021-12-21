@@ -5,6 +5,11 @@
 // session
 session_start();
 
+// check if user is already logged in
+if (isset($_SESSION['username'])) {
+    header("Location: ../index.php");
+}
+
 include '../connection.php';
 ?>
 
