@@ -10,7 +10,7 @@ if (!$conn) {
 }
 
 if ($DEBUG) {
-    $root = 'http://' . $_SERVER['HTTP_HOST'] . '/forum_sederhana/';
+    $root = 'http://' . $_SERVER['HTTP_HOST'] . '/forum-sederhana/';
 } else {
     $root = "/";
 }
