@@ -201,12 +201,15 @@ if (isset($_GET['id'])) {
                                     echo '<div class="d-flex justify-content-end">';
                                     echo '<a href="?id=' . $postID . '#comment-' . $cID . '">' . $time . '</a>';
                                     if ($_SESSION['username'] == $postUser) {
-                                        echo '<a href="editComment.php?id=' . $cID . '" class="btn btn-warning btn-sm" style="margin-left: 10px;">
+                                        echo '<a href="editComment?id=' . $cID . '" class="btn btn-warning btn-sm" style="margin-left: 10px;">
                                         <i class="bi bi-pencil"></i></a>
-                                        <a href="deleteComment.php?id=' . $cID . '" class="btn btn-danger btn-sm">
-                                        <i class="bi bi-trash"></i></a>';
+                                        <form action="./deleteComment" method="POST" onsubmit="return confirmDelComment();">
+                                        <input type="hidden" name="id" value="' . $cID . '">
+                                        <button type="submit" class="btn btn-danger btn-sm">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                        </form>';
                                     }
-
                                     echo '</div>';
                                     echo '</div>';
                                     echo '<div class="d-flex justify-content-start">';
@@ -216,6 +219,16 @@ if (isset($_GET['id'])) {
                                 }
                             }
                             ?>
+                            <script>
+                            function confirmDelComment() {
+                                var answer = confirm("Are you sure you want to delete this comment?");
+                                if (answer) {
+                                    return true;
+                                } else {
+                                    return false;
+                                }
+                            }
+                            </script>
                         </ul>
                     </div>
                 </div>
