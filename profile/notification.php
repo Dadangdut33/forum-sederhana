@@ -89,7 +89,7 @@ $result = mysqli_query($conn, $sql);
                                 $showBtnCheck = ($row['isRead'] == 0) ? '<input type="submit" class="btn btn-primary btn-sm" value="Mark read">' : '';
 
                                 echo '
-                                <li class="list-group-item d-flex justify-content-between align-items-start" id="no-num-before">
+                                <li class="list-group-item d-flex justify-content-between align-items-start" id="no-before">
                                     <div class="ms-2 me-auto">
                                         <div class="fw-bold">' . $row['type'] . ' Notification ' . $checkMark . '</div>
                                         <a href="' . $root . $row['link'] . '">' . $row['details'] . '</a>

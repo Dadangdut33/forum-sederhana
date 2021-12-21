@@ -103,8 +103,6 @@ include './connection.php';
                         // if found, get the value
                         $by = $_GET['by'];
 
-                        // get user name from db
-                        // get all posts from db
                         $sql = 'SELECT 
                             p.id as pID, 
                             p.title as title, 
@@ -119,7 +117,6 @@ include './connection.php';
                         // if found, get the value
                         $topic = $_GET['topic'];
 
-                        // get all posts from db
                         $sql = 'SELECT 
                             p.id as pID, 
                             p.title as title, 
@@ -199,7 +196,7 @@ include './connection.php';
                                     if (isset($_SESSION['username'])) {
                                         // if user is logged in, show the logout button
                                         echo '<a href="post/create.php" class="btn btn-outline-primary btn-block rounded-0 py-3 mb-3 bg-op-6 roboto-bold">Create Post</a>';
-                                        echo '<a href="auth/logout.php" class="btn btn-outline-primary btn-block rounded-0 py-3 mb-3 bg-op-6 roboto-bold" style="background-color: #ff4300 !important; margin-left: 5px;">Logout</a>';
+                                        echo '<a href="auth/logout.php" class="btn btn-danger btn-sm rounded-0 py-3 mb-3 bg-op-6 roboto-bold" style="margin-left: 5px;">Logout</a>';
                                     } else {
                                         // if user is not logged in, show the login button
                                         echo '<a href="auth/login.php" class="btn btn-outline-primary btn-block rounded-0 py-3 mb-3 bg-op-6 roboto-bold">Login</a>';
