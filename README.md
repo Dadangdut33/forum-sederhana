@@ -17,5 +17,7 @@ UI projek bertemakan bahasa Inggris.
     <img src="https://github.com/Dadangdut33/forum-sederhana/blob/main/sneakpeek/4.png?raw=true" style="max-width: 650px;">
     <img src="https://github.com/Dadangdut33/forum-sederhana/blob/main/sneakpeek/5.png?raw=true" style="max-width: 650px;">
     <img src="https://github.com/Dadangdut33/forum-sederhana/blob/main/sneakpeek/6.png?raw=true" style="max-width: 650px;">
+    <img src="https://github.com/Dadangdut33/forum-sederhana/blob/main/sneakpeek/7.png?raw=true" style="max-width: 650px;">
+    <img src="https://github.com/Dadangdut33/forum-sederhana/blob/main/sneakpeek/8.png?raw=true" style="max-width: 650px;">
 
 </p>
