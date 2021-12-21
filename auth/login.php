@@ -52,6 +52,7 @@ include '../connection.php';
                             // set session
                             $_SESSION['email'] = $row['email'];
                             $_SESSION['username'] = $row['username'];
+                            $_SESSION['isAdmin'] = $row['isAdmin'];
                         } else {
                             $error = 'Password is incorrect!';
                             echo '<div class="alert alert-danger" role="alert">' . $error . '</div>';

@@ -2,6 +2,7 @@ CREATE TABLE Users (
     username varchar(50) NOT NULL,
     password varchar(300) NOT NULL,
     email varchar(100) NOT NULL,
+	isAdmin Boolean DEFAULT 0,
     PRIMARY KEY (username)
 );
 

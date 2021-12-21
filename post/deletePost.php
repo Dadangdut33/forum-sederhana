@@ -28,6 +28,7 @@
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // get post id
         $postID = $_POST['id'];
+        $reason = $_POST['reason'];
 
         // verify that user is the same as the post's user
         $sql = "SELECT * FROM post WHERE id = '" . $postID . "'";
@@ -50,6 +51,18 @@
         $sql = "DELETE FROM post WHERE id = '$postID'";
         $result = mysqli_query($conn, $sql);
 
+        // if there is reason send notification to post's user about the deletion
+        if ($reason != '') {
+            // check session isAdmin true or not
+            if ($_SESSION['isAdmin'] == 1) {
+                $sql = "INSERT INTO notification (userID, link, type, details) VALUES ('$postUser', '#', 'Post Deleted By Admin', '$reason')";
+                $result = mysqli_query($conn, $sql);
+
+                // echo result
+                echo $result;
+            }
+        }
+
         // check result, if error print error
         if (!$result) {
             $error = 'Error: ' . mysqli_error($conn);
@@ -62,9 +75,7 @@
     } else {
         header("Location: ../403.php");
     }
-
     ?>
-
 </body>
 
 </html>

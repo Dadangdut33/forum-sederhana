@@ -182,18 +182,39 @@ if (isset($_GET['id'])) {
                         <?php
                         if (isset($_SESSION['username'])) {
                             if ($_SESSION['username'] == $user) {
-                                echo '<a href="edit.php?id=' . $id . '" class="btn btn-warning btn-sm">
-                                <i class="bi bi-pencil"></i> Edit</a>
-                                <a onclick="deletePostWithJQuery()" type="submit" class="btn btn-danger btn-sm"><i class="bi bi-trash">
-                                    </i> Delete
-                                </a>';
+                                echo '
+                                <a href="edit.php?id=' . $id . '" class="btn btn-warning btn-sm"><i class="bi bi-pencil"></i> Edit</a>
+                                <a onclick="deletePostWithJQuery(false)" type="submit" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i> Delete</a>';
+                            }
+                        }
+                        // check if admin then show delete the post button
+                        if (isset($_SESSION['isAdmin'])) {
+                            if ($_SESSION['isAdmin'] == 1) {
+                                echo '<a onclick="deletePostWithJQuery(true)" type="submit" class="btn btn-danger btn-sm" style="margin-left: 3px;"><i class="bi bi-trash"></i> Delete (Admin)</a>';
                             }
                         }
                         ?>
-                        </a>
                         <script>
-                        function deletePostWithJQuery() {
+                        function deletePostWithJQuery(admin) {
                             var postID = <?php echo $id ?>;
+
+                            // if admin is true then ask for reason
+                            if (admin) {
+                                var reason = prompt("Please enter the reason for deleting this post");
+
+                                // if reason is empty then show alert need to add reason
+                                if (reason == "") {
+                                    alert("Please enter a correct reason for deleting this post!");
+                                    return;
+                                }
+
+                                if (reason == null) {
+                                    return;
+                                }
+                            } else {
+                                var reason = "";
+                            }
+
                             var result = confirm("Are you sure you want to delete this post?");
                             if (result) {
                                 $.ajax({
@@ -201,9 +222,10 @@ if (isset($_GET['id'])) {
                                     type: "POST",
                                     data: {
                                         id: postID,
+                                        reason: reason
                                     },
                                     success: function(data) {
-                                        alert("Post deleted sucessfully!");
+                                        alert("Post deleted sucessfully! " + data);
                                         window.location.href = "../index.php";
                                     }
                                 });
