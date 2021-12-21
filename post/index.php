@@ -99,6 +99,7 @@ if (isset($_GET['id'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="stylesheet" href="../index.css">
     <title><?php echo $title ?> | Forum Sederhana</title>
 </head>
@@ -110,17 +111,37 @@ if (isset($_GET['id'])) {
                 <div class="panel panel-default" style="padding: 12px;">
                     <div class="panel-heading">
                         <a href="../index.php" class="btn btn-primary btn-sm">
-                            <i class="bi bi-arrow-left"></i> Go back home
-                            <!-- edit and delete btn if poster is the same as user -->
-                            <?php
-                            if ($_SESSION['username'] == $user) {
-                                echo '<a href="edit.php?id=' . $id . '" class="btn btn-warning btn-sm">
-                                <i class="bi bi-pencil"></i> Edit
-                                <a href="delete.php?id=' . $id . '" class="btn btn-danger btn-sm">
-                                <i class="bi bi-trash"></i> Delete';
-                            }
-                            ?>
+                            <i class="bi bi-arrow-left"></i> Go back home</a>
+                        <!-- edit and delete btn if poster is the same as user -->
+                        <?php
+                        if ($_SESSION['username'] == $user) {
+                            echo '<a href="edit.php?id=' . $id . '" class="btn btn-warning btn-sm">
+                                <i class="bi bi-pencil"></i> Edit</a>
+                                <a onclick="deletePostWithJQuery()" type="submit" class="btn btn-danger btn-sm"><i class="bi bi-trash">
+                                    </i> Delete
+                                </a>';
+                        }
+                        ?>
                         </a>
+                        <script>
+                        function deletePostWithJQuery() {
+                            var postID = <?php echo $id ?>;
+                            var result = confirm("Are you sure you want to delete this post?");
+                            if (result) {
+                                $.ajax({
+                                    url: "./deletePost",
+                                    type: "POST",
+                                    data: {
+                                        id: postID,
+                                    },
+                                    success: function(data) {
+                                        alert("Post deleted sucessfully!");
+                                        window.location.href = "../index.php";
+                                    }
+                                });
+                            }
+                        }
+                        </script>
                     </div>
                     <div class="panel-body">
                         <div class="d-flex justify-content-center">
@@ -152,7 +173,7 @@ if (isset($_GET['id'])) {
                             <div class="form-group">
                                 <!-- if user is logged in -->
                                 <textarea class="form-control" name="comment" id="comment" rows="8"
-                                    placeholder="Write your comment here..."></textarea>
+                                    placeholder="Write your comment here..." minlength="10" maxlength="1000"></textarea>
                                 <!-- if not logged in -->
                                 <?php
                                 if (!isset($_SESSION['username'])) {

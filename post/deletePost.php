@@ -12,7 +12,7 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
     <link rel="stylesheet" href="../index.css">
-    <title>Delete comment</title>
+    <title>Delete Post</title>
 </head>
 
 <body>
@@ -25,31 +25,28 @@
 
     // check for POST
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        // get comment id
-        $commentID = $_POST['id'];
+        // get post id
+        $postID = $_POST['id'];
 
-        // verify that user is the same as the comment's user
-        $sql = "SELECT * FROM comment WHERE id = '" . $commentID . "'";
+        // verify that user is the same as the post's user
+        $sql = "SELECT * FROM post WHERE id = '" . $postID . "'";
         $result = mysqli_query($conn, $sql);
 
         if (mysqli_num_rows($result) > 0) {
             $row = mysqli_fetch_assoc($result);
-            $commentUser = $row['userID'];
-            $postID = $row['postID'];
+            $postUser = $row['userID'];
         } else {
-
-            // 
             echo '<div class="alert alert-danger" role="alert">
-        Error: Comment not found.
+        Error: Post not found.
         </div>';
         }
 
-        if ($_SESSION['username'] != $commentUser) {
+        if ($_SESSION['username'] != $postUser) {
             header("Location: ../403.php");
         }
 
-        // delete comment
-        $sql = "DELETE FROM comment WHERE id = '$commentID'";
+        // delete post
+        $sql = "DELETE FROM post WHERE id = '$postID'";
         $result = mysqli_query($conn, $sql);
 
         // check result, if error print error
@@ -57,9 +54,9 @@
             $error = 'Error: ' . mysqli_error($conn);
             echo '<div class="alert alert-danger" role="alert">' . $error . '</div>';
         } else {
-            echo '<div class="alert alert-success" role="alert">Comment deleted! sucessfully!. Will redirect you back to the post in 3 seconds...</div>';
+            echo '<div class="alert alert-success" role="alert">Post deleted sucessfully!. Will redirect you to home page in 3 seconds...</div>';
             // tell will redirect in 3 seconds
-            header("refresh:3; url=./?id=" . $postID);
+            header("refresh:3; url=../");
         }
     } else {
         header("Location: ../403.php");
