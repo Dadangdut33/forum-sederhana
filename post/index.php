@@ -21,6 +21,9 @@ if (isset($_GET['id'])) {
             // get the user's id
             $user = $_SESSION['username'];
 
+            // strip html from content
+            $content = strip_tags($content);
+
             // insert the comment
             $sql = "INSERT INTO comment (content, userID, postID) VALUES ('$content', '$user', '$postID')";
             $result = mysqli_query($conn, $sql);
@@ -225,8 +228,12 @@ if (isset($_GET['id'])) {
                                         reason: reason
                                     },
                                     success: function(data) {
-                                        alert("Post deleted sucessfully! ");
-                                        window.location.href = "../index.php";
+                                        if (data == "success") {
+                                            alert("Post sucesfully deleted!");
+                                            window.location.href = "../index.php";
+                                        } else {
+                                            alert("Something went wrong!" + data);
+                                        }
                                     }
                                 });
                             }
@@ -321,6 +328,7 @@ if (isset($_GET['id'])) {
                                         <i class="bi bi-pencil"></i></a>
                                         <form action="./deleteComment" method="POST" onsubmit="return confirmDelComment();">
                                         <input type="hidden" name="id" value="' . $cID . '">
+                                        <input type="hidden" name="reason" value="">
                                         <button type="submit" class="btn btn-danger btn-sm">
                                             <i class="bi bi-trash"></i>
                                         </button>
@@ -373,8 +381,12 @@ if (isset($_GET['id'])) {
                                         reason: reason
                                     },
                                     success: function(data) {
-                                        alert("Comment sucesfully deleted!");
-                                        window.location.reload();
+                                        if (data == "success") {
+                                            alert("Comment sucesfully deleted!");
+                                            window.location.reload();
+                                        } else {
+                                            alert("Something went wrong!" + data);
+                                        }
                                     }
                                 });
 

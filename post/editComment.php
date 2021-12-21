@@ -62,6 +62,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($content == '') {
         echo '<div class="alert alert-danger" role="alert">Content cannot be empty!</div>';
     } else {
+        // strip tags
+        $content = strip_tags($content);
+
         // update the comment
         $sql = "UPDATE comment SET content = '$content' WHERE id = '$id'";
         $result = mysqli_query($conn, $sql);

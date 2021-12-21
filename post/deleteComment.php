@@ -51,7 +51,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo $error;
     } else {
         // echo sucess
-        echo 'success';
+        if ($reason != '') {
+            echo 'success';
+        } else {
+            // redirect back to post
+            header("Location: ../post?id=" . $postID);
+        }
     }
 } else {
     header("Location: ../403.php");

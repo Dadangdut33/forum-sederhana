@@ -72,6 +72,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($topic == '') {
                 echo '<div class="alert alert-danger" role="alert">Topic cannot be empty!</div>';
             } else {
+                // strip tags
+                $title = strip_tags($title);
+                $content = strip_tags($content);
+                $topic = strip_tags($topic);
+
                 // update the post
                 $sql = "UPDATE post SET title = '$title', content = '$content', topicID = '$topic' WHERE id = '$id'";
                 $result = mysqli_query($conn, $sql);

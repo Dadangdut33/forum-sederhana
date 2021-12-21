@@ -20,6 +20,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($title) || empty($content)) {
         echo '<div class="alert alert-danger" role="alert">Title and Content cannot be empty</div>';
     } else {
+        // strip tags
+        $title = strip_tags($title);
+        $content = strip_tags($content);
+        $topic = strip_tags($topic);
+
         // insert data into db
         $sql = "INSERT INTO post (title, content, userID, topicID) VALUES ('$title', '$content', '$user', '$topic')";
         $result = mysqli_query($conn, $sql);
