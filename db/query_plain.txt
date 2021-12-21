@@ -24,6 +24,13 @@ CREATE TABLE Topic (
 	PRIMARY KEY (id)
 );
 
+INSERT INTO Topic (name) VALUES ('General');
+INSERT INTO Topic (name) VALUES ('Games');
+INSERT INTO Topic (name) VALUES ('Movies');
+INSERT INTO Topic (name) VALUES ('Music');
+INSERT INTO Topic (name) VALUES ('Science');
+INSERT INTO Topic (name) VALUES ('Random Discussion');
+
 CREATE TABLE Post (
 	id INT NOT NULL AUTO_INCREMENT,
 	title varchar(200) NOT NULL,
