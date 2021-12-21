@@ -73,7 +73,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <label for="name">Topic</label>
                                 <input type="text" class="form-control" id="name" name="name" required>
                             </div>
-                            <button type="submit" class="btn btn-primary" style="margin-top:5px;">Submit</button>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary" style="margin-top:5px;">Add</button>
+                            </div>
                         </form>
                     </div>
                 </div>

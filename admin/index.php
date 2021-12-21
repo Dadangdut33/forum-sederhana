@@ -26,6 +26,7 @@ if (!isset($_SESSION['isAdmin'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="stylesheet" href="../index.css">
     <link rel="icon" href="../favicon.ico">
     <title>Post Tags</title>
@@ -85,7 +86,7 @@ if (!isset($_SESSION['isAdmin'])) {
                                         echo '<th scope="row">' . $tag_id . '</th>';
                                         echo '<td>' . $tag . '</td>';
                                         echo '<td>' . $num_posts . '</td>';
-                                        echo '<td><a href="edit_topic.php?id=' . $tag_id . '" class="btn btn-primary btn-sm">Edit</a> <a href="delete_tag.php?tag_id=' . $tag_id . '" class="btn btn-danger btn-sm">Delete</a></td>';
+                                        echo '<td><a href="edit_topic.php?id=' . $tag_id . '" class="btn btn-primary btn-sm">Edit</a> <a onclick="deleteTag(' . $tag_id . ')" class="btn btn-danger btn-sm">Delete</a></td>';
                                         echo '</tr>';
                                     }
                                 } else {
@@ -97,6 +98,29 @@ if (!isset($_SESSION['isAdmin'])) {
                                     echo '</tr>';
                                 }
                                 ?>
+                            </tbody>
+                            <script>
+                            function deleteTag(id) {
+                                if (confirm("Are you sure you want to delete this topic?")) {
+                                    // send ajax request
+                                    $.ajax({
+                                        url: "./delete_topic",
+                                        method: "POST",
+                                        data: {
+                                            id: id
+                                        },
+                                        success: function(data) {
+                                            if (data == "success") {
+                                                // reload page
+                                                location.reload();
+                                            } else {
+                                                alert(data);
+                                            }
+                                        }
+                                    });
+                                }
+                            }
+                            </script>
                     </div>
                 </div>
             </div>
