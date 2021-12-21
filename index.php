@@ -97,7 +97,7 @@ include './connection.php';
                         p.userID as userID,
                         t.id as tID,
                         t.name as tName 
-                        FROM post as p JOIN topic as t on t.id = p.id ORDER BY time DESC;";
+                        FROM post as p JOIN topic as t on t.id = p.topicID ORDER BY time DESC;";
 
                     // check for get request "by" which indicates user id
                     if (isset($_GET['by'])) {
@@ -112,7 +112,7 @@ include './connection.php';
                             p.userID as userID,
                             t.id as tID,
                             t.name as tName 
-                            FROM post as p JOIN topic as t on t.id = p.id and userID="' . $by . '" ORDER BY time DESC;';
+                            FROM post as p JOIN topic as t on t.id = p.topicID and userID="' . $by . '" ORDER BY time DESC;';
                     } else 
                     if (isset($_GET['topic'])) {
                         // if found, get the value
@@ -126,7 +126,7 @@ include './connection.php';
                             p.userID as userID,
                             t.id as tID,
                             t.name as tName 
-                            FROM post as p JOIN topic as t on t.id = p.id and t.name="' . $topic . '" ORDER BY time DESC;';
+                            FROM post as p JOIN topic as t on t.id = p.topicID and t.name="' . $topic . '" ORDER BY time DESC;';
                     }
 
                     $result = mysqli_query($conn, $sql);
