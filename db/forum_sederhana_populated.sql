@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 21, 2021 at 06:34 AM
+-- Generation Time: Dec 21, 2021 at 05:39 PM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 8.0.8
 
@@ -42,7 +42,9 @@ CREATE TABLE `comment` (
 INSERT INTO `comment` (`id`, `content`, `time`, `userID`, `postID`) VALUES
 (1, 'Bagus bro lu harus nonton!!!!', '2021-12-21 05:28:20', 'definitelynotfauzan', 1),
 (2, 'oiya ngomong2 topic anda salah bro!!!!', '2021-12-21 05:28:43', 'definitelynotfauzan', 1),
-(3, 'oiya, terimakasih @definitelynotfauzan akan segera saya ganti tag nya! ', '2021-12-21 05:29:11', 'Fauzan', 1);
+(3, 'oiya, terimakasih @definitelynotfauzan akan segera saya ganti tag nya! ', '2021-12-21 05:29:11', 'Fauzan', 1),
+(9, 'DASDSADS QADSA SD SAD SA DASD ASD A DA DASDSADS QADSA SD SAD SA DASD ASD A DA DASDSADS QADSA SD SAD SA DASD ASD A DA DASDSADS QADSA SD SAD SA DASD ASD A DA DASDSADS QADSA SD SAD SA DASD ASD A DA DASDSADS QADSA SD SAD SA DASD ASD A DA ', '2021-12-21 12:03:42', 'definitelynotfauzan', 1),
+(23, 'alert(\"Hello\")', '2021-12-21 12:23:44', 'definitelynotfauzan', 6);
 
 -- --------------------------------------------------------
 
@@ -67,7 +69,18 @@ CREATE TABLE `notification` (
 INSERT INTO `notification` (`id`, `details`, `link`, `type`, `isRead`, `time`, `userID`) VALUES
 (1, 'A user commented on your post titled \"Spiderman yang terbaru? Apakah bagus??\"', 'post/index?id=1#comment-1', 'Post Comment', 0, '2021-12-21 05:28:20', 'Fauzan'),
 (2, 'A user commented on your post titled \"Spiderman yang terbaru? Apakah bagus??\"', 'post/index?id=1#comment-2', 'Post Comment', 0, '2021-12-21 05:28:44', 'Fauzan'),
-(3, 'A user mentioned you in a comment on a post titled \"Spiderman yang terbaru? Apakah bagus??\"', 'post/index?id=1#comment-3', 'Comment Mention', 0, '2021-12-21 05:29:12', 'definitelynotfauzan');
+(3, 'A user mentioned you in a comment on a post titled \"Spiderman yang terbaru? Apakah bagus??\"', 'post/index?id=1#comment-3', 'Comment Mention', 0, '2021-12-21 05:29:12', 'definitelynotfauzan'),
+(4, 'Your post is a spam', '#', 'Post Deleted By Admin', 0, '2021-12-21 11:40:42', 'definitelynotfauzan'),
+(5, 'A user commented on your post titled \"Spiderman yang terbaru? Apakah bagus?? \"', 'post/index?id=1#comment-5', 'Post Comment', 0, '2021-12-21 11:53:33', 'Fauzan'),
+(7, 'A user commented on your post titled \"Spiderman yang terbaru? Apakah bagus?? \"', 'post/index?id=1#comment-6', 'Post Comment', 0, '2021-12-21 11:58:13', 'Fauzan'),
+(8, 'A user commented on your post titled \"Spiderman yang terbaru? Apakah bagus?? \"', 'post/index?id=1#comment-7', 'Post Comment', 0, '2021-12-21 11:58:16', 'Fauzan'),
+(11, 'A user commented on your post titled \"Spiderman yang terbaru? Apakah bagus?? \"', 'post/index?id=1#comment-8', 'Post Comment', 0, '2021-12-21 12:03:40', 'Fauzan'),
+(12, 'A user commented on your post titled \"Spiderman yang terbaru? Apakah bagus?? \"', 'post/index?id=1#comment-9', 'Post Comment', 0, '2021-12-21 12:03:42', 'Fauzan'),
+(14, 'TESTATTATTA', '#', 'Post Deleted By Admin', 1, '2021-12-21 12:06:01', 'definitelynotfauzan'),
+(21, 'd asD DA AS DAS sd asD DA AS DAS sd asD DA AS DAS sd asD DA AS DAS s', '#', 'Comment Deleted By Admin', 1, '2021-12-21 12:12:31', 'definitelynotfauzan'),
+(22, 'test', '#', 'Comment Deleted By Admin', 1, '2021-12-21 12:22:33', 'definitelynotfauzan'),
+(23, 'tessssss', '#', 'Post Deleted By Admin', 0, '2021-12-21 12:22:41', 'definitelynotfauzan'),
+(24, 'A user commented on your post titled \"Haloooooo\"', 'post/index?id=7#comment-24', 'Post Comment', 1, '2021-12-21 15:26:35', 'odi');
 
 -- --------------------------------------------------------
 
@@ -89,7 +102,10 @@ CREATE TABLE `post` (
 --
 
 INSERT INTO `post` (`id`, `title`, `content`, `time`, `userID`, `topicID`) VALUES
-(1, 'Spiderman yang terbaru? Apakah bagus?? ', 'Saya ingin menonton tapi belum sempat. Apakah bagus kira-kira movienya?', '2021-12-21 05:27:19', 'Fauzan', 3);
+(1, 'Spiderman yang terbaru? Apakah bagus??    ', 'Saya ingin menonton tapi belum sempat. Apakah bagus kira-kira movienya?', '2021-12-21 05:27:19', 'Fauzan', 3),
+(6, ' asokd oas ndosa nmoSD NOsadn oasn d', 'alert(\"Hello\")', '2021-12-21 12:23:17', 'definitelynotfauzan', 1),
+(7, 'Haloooooo', 'haloooo aku suka sekree hehehehehhhe', '2021-12-21 15:26:21', 'odi', 5),
+(8, 'Sedikit Spoiler Spiderman', 'jadiiii ginni pokoknya spidermannya ada 3 dannn si tobeyy tiba2 udah tua gt udah ga kaya dulu lagii. Udah tamat!!!', '2021-12-21 15:29:19', 'odi', 3);
 
 -- --------------------------------------------------------
 
@@ -123,16 +139,18 @@ INSERT INTO `topic` (`id`, `name`) VALUES
 CREATE TABLE `users` (
   `username` varchar(50) NOT NULL,
   `password` varchar(300) NOT NULL,
-  `email` varchar(100) NOT NULL
+  `email` varchar(100) NOT NULL,
+  `isAdmin` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`username`, `password`, `email`) VALUES
-('definitelynotfauzan', '$2y$10$FVHBInVAEn8TZbgovcF5Q.4cJrpQSUiOCnlUrU0JDW8PtectJKZcy', 'emaillagi@gmail.com'),
-('Fauzan', '$2y$10$ydNTXoSQbxX6RV9Hnjmn.OC.NNyIm9F0mNqqbp0g04ZQv5Pm8/09u', 'iniemail@gmail.com');
+INSERT INTO `users` (`username`, `password`, `email`, `isAdmin`) VALUES
+('definitelynotfauzan', '$2y$10$FVHBInVAEn8TZbgovcF5Q.4cJrpQSUiOCnlUrU0JDW8PtectJKZcy', 'emaillagi@gmail.com', 0),
+('Fauzan', '$2y$10$ydNTXoSQbxX6RV9Hnjmn.OC.NNyIm9F0mNqqbp0g04ZQv5Pm8/09u', 'iniemail@gmail.com', 1),
+('odi', '$2y$10$YHKquHOxbMXLSqyr/oyoTuSP6S23xEePXDYAwavQD3/sSDr4ySqEu', 'ajimi123@gmail.com', 0);
 
 --
 -- Indexes for dumped tables
@@ -181,25 +199,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `topic`
 --
 ALTER TABLE `topic`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables
