@@ -180,12 +180,14 @@ if (isset($_GET['id'])) {
                             <i class="bi bi-arrow-left"></i> Go back home</a>
                         <!-- edit and delete btn if poster is the same as user -->
                         <?php
-                        if ($_SESSION['username'] == $user) {
-                            echo '<a href="edit.php?id=' . $id . '" class="btn btn-warning btn-sm">
+                        if (isset($_SESSION['username'])) {
+                            if ($_SESSION['username'] == $user) {
+                                echo '<a href="edit.php?id=' . $id . '" class="btn btn-warning btn-sm">
                                 <i class="bi bi-pencil"></i> Edit</a>
                                 <a onclick="deletePostWithJQuery()" type="submit" class="btn btn-danger btn-sm"><i class="bi bi-trash">
                                     </i> Delete
                                 </a>';
+                            }
                         }
                         ?>
                         </a>
@@ -237,21 +239,24 @@ if (isset($_GET['id'])) {
                     <div class="panel-body">
                         <form action="?id=<?php echo $id ?>" method="POST">
                             <div class="form-group">
-                                <!-- if user is logged in -->
-                                <textarea class="form-control" name="comment" id="comment" rows="8"
-                                    placeholder="Write your comment here..." minlength="10" maxlength="1000"
-                                    required></textarea>
-                                <!-- if not logged in -->
                                 <?php
                                 if (!isset($_SESSION['username'])) {
                                     echo '<textarea class="form-control" name="comment" id="comment" rows="8"
                                     placeholder="You need to be logged in to write a comment..." disabled></textarea>';
+                                } else {
+                                    echo '<textarea class="form-control" name="comment" id="comment" rows="8"
+                                    placeholder="Write your comment here..." minlength="10" maxlength="1000"
+                                    required></textarea>';
                                 }
                                 ?>
                             </div>
-                            <input type="hidden" name="postID" value="<?php echo $id ?>">
-                            <input type="hidden" name="username" value="<?php echo $_SESSION['username'] ?>">
-                            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Submit</button>
+                            <?php
+                            if (isset($_SESSION['username'])) {
+                                echo '<input type="hidden" name="postID" value="' . $id . '">
+                                    <input type="hidden" name="username" value="' . $_SESSION['username'] . '">
+                                    <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Submit</button>';
+                            }
+                            ?>
                         </form>
                     </div>
                 </div>
@@ -288,8 +293,9 @@ if (isset($_GET['id'])) {
                                     echo '</div>';
                                     echo '<div class="d-flex justify-content-end">';
                                     echo '<a href="?id=' . $postID . '#comment-' . $cID . '">' . $time . '</a>';
-                                    if ($_SESSION['username'] == $postUser) {
-                                        echo '<a href="editComment?id=' . $cID . '" class="btn btn-warning btn-sm" style="margin-left: 10px;">
+                                    if (isset($_SESSION['username'])) {
+                                        if ($_SESSION['username'] == $postUser) {
+                                            echo '<a href="editComment?id=' . $cID . '" class="btn btn-warning btn-sm" style="margin-left: 10px;">
                                         <i class="bi bi-pencil"></i></a>
                                         <form action="./deleteComment" method="POST" onsubmit="return confirmDelComment();">
                                         <input type="hidden" name="id" value="' . $cID . '">
@@ -297,6 +303,7 @@ if (isset($_GET['id'])) {
                                             <i class="bi bi-trash"></i>
                                         </button>
                                         </form>';
+                                        }
                                     }
                                     echo '</div>';
                                     echo '</div>';
