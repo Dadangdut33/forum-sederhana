@@ -96,9 +96,7 @@ include '../connection.php';
 
             if (!isset($error)) {
                 // alert success with js
-                echo '<script>alert("Registration successful! You can now log in to your account");</script>';
-
-                header('location: login.php');
+                echo '<script>alert("Registration successful! You can now log in to your account");window.location.href="./login";</script>';
             }
         }
         ?>

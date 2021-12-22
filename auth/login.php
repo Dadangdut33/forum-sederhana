@@ -77,9 +77,10 @@ include '../connection.php';
 
             if (!isset($error)) {
                 // alert sucess with js
-                echo '<script>alert("Login successful!");</script>';
-
-                header('location: ../index.php');
+                echo "<script>
+                alert('Login succesfull');
+                window.location.href='../index';
+                </script>";
             }
         }
         ?>
