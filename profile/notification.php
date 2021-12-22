@@ -78,7 +78,7 @@ $result = mysqli_query($conn, $sql);
                                     <div class="ms-2 me-auto">
                                         <div class="fw-bold">' . $row['type'] . ' ' . $checkMark . '</div>
                                         <a href="' . $link . '">' . $row['details'] . '</a>
-                                        <span class="badge bg-primary rounded-pill">' . $row['time'] . '</span>
+                                        <span class="badge bg-primary rounded-pill" id="notif-' . $row['id'] . '">' . $row['time'] . '</span>
                                     </div>
                                     <form action="./readNotif" method="POST">
                                         <input type="hidden" name="notifID" value="' . $row['id'] . '">

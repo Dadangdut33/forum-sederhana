@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo '<div class="alert alert-danger" role="alert">' . $error . '</div>';
     } else {
         // redirect to profile page
-        header("Location: ./notification?user=$user");
+        header("Location: ./notification?user=$user#notif-$notifID");
     }
 } else {
     header("Location: ../403.php");
