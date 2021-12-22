@@ -77,6 +77,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $content = strip_tags($content);
                 $topic = strip_tags($topic);
 
+                // real escape string
+                $title = mysqli_real_escape_string($conn, $title);
+                $content = mysqli_real_escape_string($conn, $content);
+                $topic = mysqli_real_escape_string($conn, $topic);
+
                 // update the post
                 $sql = "UPDATE post SET title = '$title', content = '$content', topicID = '$topic' WHERE id = '$id'";
                 $result = mysqli_query($conn, $sql);

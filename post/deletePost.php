@@ -31,6 +31,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
+    // sanitize id
+    $postID = strip_tags($postID);
+    $postID = mysqli_real_escape_string($conn, $postID);
+
     // delete post
     $sql = "DELETE FROM post WHERE id = '$postID'";
     $result = mysqli_query($conn, $sql);
@@ -39,6 +43,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($reason != '') {
         // check session isAdmin true or not
         if ($_SESSION['isAdmin'] == 1) {
+            // sanitize
+            $reason = strip_tags($reason);
+            $reason = mysqli_real_escape_string($conn, $reason);
+
             $sql = "INSERT INTO notification (userID, link, type, details) VALUES ('$postUser', '#', 'Post Deleted By Admin', '$reason')";
             $result = mysqli_query($conn, $sql);
         }

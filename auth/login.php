@@ -38,8 +38,19 @@ include '../connection.php';
                 $error = 'Please fill in all the fields';
                 echo '<div class="alert alert-danger" role="alert">' . $error . '</div>';
             } else {
+                $username = $_POST['username'];
+                $password = $_POST['password'];
+
+                // strip tags
+                $username = strip_tags($username);
+                $password = strip_tags($password);
+
+                // sanitize input
+                $username = mysqli_real_escape_string($conn, $username);
+                $password = mysqli_real_escape_string($conn, $password);
+
                 // check if email exists in database
-                $sql = "SELECT * FROM Users WHERE username = '" . $_POST['username'] . "'";
+                $sql = "SELECT * FROM Users WHERE username = '" . $username . "'";
                 $result = mysqli_query($conn, $sql);
                 if (!$result) {
                     $error = 'Error: ' . mysqli_error($conn);
@@ -48,7 +59,7 @@ include '../connection.php';
                     if (mysqli_num_rows($result) > 0) {
                         // check if password is correct
                         $row = mysqli_fetch_assoc($result);
-                        if (password_verify($_POST['password'], $row['password'])) {
+                        if (password_verify($password, $row['password'])) {
                             // set session
                             $_SESSION['email'] = $row['email'];
                             $_SESSION['username'] = $row['username'];
@@ -65,11 +76,10 @@ include '../connection.php';
             }
 
             if (!isset($error)) {
-                // if no error, show success
-                echo '<div class="alert alert-success" role="alert">Successfully Logged in, will redirect to main page in 3 seconds</div>';
-                // redirect to login in 3 secs
-                // header('url=../index.php');
-                header('refresh: 3; url=../index.php');
+                // alert sucess with js
+                echo '<script>alert("Login successful!");</script>';
+
+                header('location: ../index.php');
             }
         }
         ?>

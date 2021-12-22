@@ -69,8 +69,17 @@ include '../connection.php';
                                     echo '<div class="alert alert-danger" role="alert">' . $error . '</div>';
                                 } else {
                                     // if all is well, then insert into database
+                                    // sanitize input
+                                    $username = strip_tags($_POST['username']);
+                                    $email = strip_tags($_POST['email']);
+                                    $password = strip_tags($_POST['password']);
+
+                                    $username = mysqli_real_escape_string($conn, $username);
+                                    $email = mysqli_real_escape_string($conn, $email);
+                                    $password = mysqli_real_escape_string($conn, $password);
+
                                     // hash the password first
-                                    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+                                    $password = password_hash($password, PASSWORD_DEFAULT);
 
                                     $sql = "INSERT INTO Users (username, email, password) VALUES ('" . $_POST['username'] . "', '" . $_POST['email'] . "', '" . $password . "')";
                                     $result = mysqli_query($conn, $sql);
@@ -86,9 +95,10 @@ include '../connection.php';
             }
 
             if (!isset($error)) {
-                echo '<div class="alert alert-success" role="alert">Successfully registered, will redirect to login page in 3 seconds</div>';
-                // redirect to login in 3 secs
-                header('refresh: 3; url=login.php');
+                // alert success with js
+                echo '<script>alert("Registration successful! You can now log in to your account");</script>';
+
+                header('location: login.php');
             }
         }
         ?>

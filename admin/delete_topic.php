@@ -19,6 +19,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // get the data
     $id = $_POST['id'];
 
+    // sanitize
+    $id = strip_tags($id);
+    $id = mysqli_real_escape_string($conn, $id);
+
     // delete the topic
     $sql = "DELETE FROM topic WHERE id = '$id'";
     $result = mysqli_query($conn, $sql);

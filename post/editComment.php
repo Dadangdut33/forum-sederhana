@@ -65,6 +65,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // strip tags
         $content = strip_tags($content);
 
+        // real escape string
+        $content = mysqli_real_escape_string($conn, $content);
+
         // update the comment
         $sql = "UPDATE comment SET content = '$content' WHERE id = '$id'";
         $result = mysqli_query($conn, $sql);
@@ -75,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             echo '<div class="alert alert-danger" role="alert">' . $error . '</div>';
         } else {
             // alert success with javascript
-            echo '<script>alert("Post updated successfully!");</script>';
+            echo '<script>alert("Comment updated successfully!");</script>';
             // redirect to the post
             header("Location: ./?id=$postID#comment-$id");
         }

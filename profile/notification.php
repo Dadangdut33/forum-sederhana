@@ -10,23 +10,6 @@ include '../connection.php';
 // GET "user" from URL
 $user = $_GET['user'];
 
-// check for post request
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // get the data
-    $notifID = $_POST['notifID'];
-
-    // mark notif as read
-    $sql = "UPDATE notification SET isRead = 1 WHERE id = '$notifID'";
-    $result = mysqli_query($conn, $sql);
-
-    // check result, if error print error
-    if (!$result) {
-        $error = 'Error: ' . mysqli_error($conn);
-        echo '<div class="alert alert-danger" role="alert">' . $error . '</div>';
-    }
-}
-
-
 // check if it exist in db or not
 $sql = "SELECT * FROM Users WHERE username = '" . $user . "'";
 $result = mysqli_query($conn, $sql);
@@ -97,7 +80,7 @@ $result = mysqli_query($conn, $sql);
                                         <a href="' . $link . '">' . $row['details'] . '</a>
                                         <span class="badge bg-primary rounded-pill">' . $row['time'] . '</span>
                                     </div>
-                                    <form action="notification?user=' . $username . '" method="POST">
+                                    <form action="./readNotif" method="POST">
                                         <input type="hidden" name="notifID" value="' . $row['id'] . '">
                                         ' . $showBtnCheck . '
                                     </form>

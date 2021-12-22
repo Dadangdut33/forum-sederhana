@@ -23,6 +23,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // get the data
     $name = $_POST['name'];
 
+    // sanitize input
+    $name = strip_tags($name);
+    $name = mysqli_real_escape_string($conn, $name);
+
     // insert the new tag
     $sql = "INSERT INTO topic (name) VALUES ('$name')";
     $result = mysqli_query($conn, $sql);

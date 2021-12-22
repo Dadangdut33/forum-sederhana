@@ -25,6 +25,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $content = strip_tags($content);
         $topic = strip_tags($topic);
 
+        // real escape string
+        $title = mysqli_real_escape_string($conn, $title);
+        $content = mysqli_real_escape_string($conn, $content);
+        $topic = mysqli_real_escape_string($conn, $topic);
+
         // insert data into db
         $sql = "INSERT INTO post (title, content, userID, topicID) VALUES ('$title', '$content', '$user', '$topic')";
         $result = mysqli_query($conn, $sql);

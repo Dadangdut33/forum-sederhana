@@ -44,6 +44,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = $_POST['name'];
     $id = $_POST['id'];
 
+    // sanitize input
+    $name = strip_tags($name);
+    $name = mysqli_real_escape_string($conn, $name);
+    $id = strip_tags($id);
+    $id = mysqli_real_escape_string($conn, $id);
+
     // update the topic
     $sql = "UPDATE topic SET name = '$name' WHERE id = '$id'";
     $result = mysqli_query($conn, $sql);
