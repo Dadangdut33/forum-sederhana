@@ -7,7 +7,7 @@ session_start();
 
 // check if user is already logged in
 if (isset($_SESSION['username'])) {
-    header("Location: ../index.php");
+    header("Location: ../");
 }
 
 include '../connection.php';
@@ -89,7 +89,7 @@ include '../connection.php';
       <div class="row bg-white">
         <div class="panel panel-default" style="padding: 12px;">
           <div class="panel-heading">
-            <a href="../index.php" class="btn btn-primary btn-sm">
+            <a href="../" class="btn btn-primary btn-sm">
               <i class="bi bi-arrow-left"></i> Go back home
             </a>
             <h3 class="panel-title">Login</h3>

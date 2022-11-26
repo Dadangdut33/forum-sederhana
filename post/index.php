@@ -63,31 +63,31 @@ if (isset($_GET['id'])) {
 ?>
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-    </script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <link rel="stylesheet" href="../index.css">
-    <link rel="icon" href="../favicon.ico">
-    <title><?php echo $title ?> | Forum Sederhana</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+  </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <link rel="stylesheet" href="../index.css">
+  <link rel="icon" href="../favicon.ico">
+  <title><?php echo $title ?> | Forum Sederhana</title>
 </head>
 
 <body>
-    <main class="center-vertical-horizontal">
-        <div class="container">
-            <div class="row bg-white">
-                <div class="panel panel-default" style="padding: 12px;">
-                    <div class="panel-heading">
-                        <a href="../index.php" class="btn btn-primary btn-sm">
-                            <i class="bi bi-arrow-left"></i> Go back home</a>
-                        <!-- edit and delete btn if poster is the same as user -->
-                        <?php
+  <main class="center-vertical-horizontal">
+    <div class="container">
+      <div class="row bg-white">
+        <div class="panel panel-default" style="padding: 12px;">
+          <div class="panel-heading">
+            <a href="../" class="btn btn-primary btn-sm">
+              <i class="bi bi-arrow-left"></i> Go back home</a>
+            <!-- edit and delete btn if poster is the same as user -->
+            <?php
                         if (isset($_SESSION['username'])) {
                             if ($_SESSION['username'] == $user) {
                                 echo '
@@ -102,78 +102,77 @@ if (isset($_GET['id'])) {
                             }
                         }
                         ?>
-                        <script>
-                        function deletePostWithJQuery(admin) {
-                            var postID = <?php echo $id ?>;
+            <script>
+            function deletePostWithJQuery(admin) {
+              var postID = <?php echo $id ?>;
 
-                            // if admin is true then ask for reason
-                            if (admin) {
-                                var reason = prompt("Please enter the reason for deleting this post");
+              // if admin is true then ask for reason
+              if (admin) {
+                var reason = prompt("Please enter the reason for deleting this post");
 
-                                // if reason is empty then show alert need to add reason
-                                if (reason == "") {
-                                    alert("Please enter a correct reason for deleting this post!");
-                                    return;
-                                }
+                // if reason is empty then show alert need to add reason
+                if (reason == "") {
+                  alert("Please enter a correct reason for deleting this post!");
+                  return;
+                }
 
-                                if (reason == null) {
-                                    return;
-                                }
-                            } else {
-                                var reason = "";
-                            }
+                if (reason == null) {
+                  return;
+                }
+              } else {
+                var reason = "";
+              }
 
-                            var result = confirm("Are you sure you want to delete this post?");
-                            if (result) {
-                                $.ajax({
-                                    url: "./deletePost",
-                                    type: "POST",
-                                    data: {
-                                        id: postID,
-                                        reason: reason
-                                    },
-                                    success: function(data) {
-                                        if (data == "success") {
-                                            alert("Post sucesfully deleted!");
-                                            window.location.href = "../index.php";
-                                        } else {
-                                            alert("Something went wrong!" + data);
-                                        }
-                                    }
-                                });
-                            }
-                        }
-                        </script>
-                    </div>
-                    <div class="panel-body">
-                        <div class="d-flex justify-content-center">
-                            <h1 class="panel-title" style="margin-top: 10px;"><?php echo $title ?></h1>
-                        </div>
-                        <div class="d-flex justify-content-center">
-                            <figcaption class="blockquote-footer" style="margin-top: 1px;" id="no-before">
-                                <i class="bi bi-person"></i> <a
-                                    href="../profile/?user=<?php echo $user ?>"><?php echo $user ?></a>
-                                <i class="bi bi-tag" style="padding-left: 5px;"></i> <a
-                                    href="../topic/topic=<?php echo $topic ?>"><?php echo $topic ?></a>
-                                <i class="bi bi-clock" style="padding-left: 5px;"></i> <?php echo $time ?>
-                            </figcaption>
-                        </div>
-                        <?php
+              var result = confirm("Are you sure you want to delete this post?");
+              if (result) {
+                $.ajax({
+                  url: "./deletePost",
+                  type: "POST",
+                  data: {
+                    id: postID,
+                    reason: reason
+                  },
+                  success: function(data) {
+                    if (data == "success") {
+                      alert("Post sucesfully deleted!");
+                      window.location.href = "../";
+                    } else {
+                      alert("Something went wrong!" + data);
+                    }
+                  }
+                });
+              }
+            }
+            </script>
+          </div>
+          <div class="panel-body">
+            <div class="d-flex justify-content-center">
+              <h1 class="panel-title" style="margin-top: 10px;"><?php echo $title ?></h1>
+            </div>
+            <div class="d-flex justify-content-center">
+              <figcaption class="blockquote-footer" style="margin-top: 1px;" id="no-before">
+                <i class="bi bi-person"></i> <a href="../profile/?user=<?php echo $user ?>"><?php echo $user ?></a>
+                <i class="bi bi-tag" style="padding-left: 5px;"></i> <a
+                  href="../topic/topic=<?php echo $topic ?>"><?php echo $topic ?></a>
+                <i class="bi bi-clock" style="padding-left: 5px;"></i> <?php echo $time ?>
+              </figcaption>
+            </div>
+            <?php
                         // echo content
                         echo '<div class="d-flex justify-content-left">';
                         echo '<p class="panel-content">' . $content . '</p>';
                         echo '</div>';
                         ?>
-                    </div>
-                </div>
-                <hr style="width: 90%; margin: 10px auto;" />
-            </div>
-            <div class="row bg-white">
-                <div class="panel panel-default" style="padding: 12px;">
-                    <div class="panel-body">
-                        <form action="./comment" method="POST">
-                            <div class="form-group">
-                                <?php
+          </div>
+        </div>
+        <hr style="width: 90%; margin: 10px auto;" />
+      </div>
+      <div class="row bg-white">
+        <div class="panel panel-default" style="padding: 12px;">
+          <div class="panel-body">
+            <form action="./comment" method="POST">
+              <div class="form-group">
+                <?php
                                 if (!isset($_SESSION['username'])) {
                                     echo '<textarea class="form-control" name="comment" id="comment" rows="8"
                                     placeholder="You need to be logged in to write a comment..." disabled></textarea>';
@@ -183,8 +182,8 @@ if (isset($_GET['id'])) {
                                     required></textarea>';
                                 }
                                 ?>
-                            </div>
-                            <?php
+              </div>
+              <?php
                             if (isset($_SESSION['username'])) {
                                 echo '<input type="hidden" name="postID" value="' . $id . '">
                                     <input type="hidden" name="username" value="' . $_SESSION['username'] . '">
@@ -193,20 +192,20 @@ if (isset($_GET['id'])) {
                                     </div>';
                             }
                             ?>
-                        </form>
-                    </div>
-                </div>
-            </div>
+            </form>
+          </div>
         </div>
-        <div class="container">
-            <div class=" row bg-white">
-                <div class="panel panel-default" style="padding: 12px;">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Comments (<?php echo $commentAmmount ?>)</h3>
-                    </div>
-                    <div class="panel-body">
-                        <ul class="list-group">
-                            <?php
+      </div>
+    </div>
+    <div class="container">
+      <div class=" row bg-white">
+        <div class="panel panel-default" style="padding: 12px;">
+          <div class="panel-heading">
+            <h3 class="panel-title">Comments (<?php echo $commentAmmount ?>)</h3>
+          </div>
+          <div class="panel-body">
+            <ul class="list-group">
+              <?php
                             // check if there is any comment
                             if ($commentAmmount == 0) {
                                 echo '<div class="d-flex justify-content-center">';
@@ -258,54 +257,54 @@ if (isset($_GET['id'])) {
                                 }
                             }
                             ?>
-                            <script>
-                            function confirmDelComment() {
-                                var answer = confirm("Are you sure you want to delete this comment?");
-                                if (answer) {
-                                    return true;
-                                } else {
-                                    return false;
-                                }
-                            }
+              <script>
+              function confirmDelComment() {
+                var answer = confirm("Are you sure you want to delete this comment?");
+                if (answer) {
+                  return true;
+                } else {
+                  return false;
+                }
+              }
 
-                            function confirmDelAdmin(id) {
-                                // prompt for reason
-                                var reason = prompt("Please enter the reason for deleting this post");
-                                if (reason == null) {
-                                    return;
-                                }
-                                if (reason == "") {
-                                    alert("You need to enter a valid reason!");
-                                    return;
-                                }
+              function confirmDelAdmin(id) {
+                // prompt for reason
+                var reason = prompt("Please enter the reason for deleting this post");
+                if (reason == null) {
+                  return;
+                }
+                if (reason == "") {
+                  alert("You need to enter a valid reason!");
+                  return;
+                }
 
-                                //  send ajax jquery to ./deleteComment
-                                $.ajax({
-                                    type: "POST",
-                                    url: "./deleteComment",
-                                    data: {
-                                        id: id,
-                                        reason: reason
-                                    },
-                                    success: function(data) {
-                                        if (data == "success") {
-                                            alert("Comment sucesfully deleted!");
-                                            window.location.reload();
-                                        } else {
-                                            alert("Something went wrong!" + data);
-                                        }
-                                    }
-                                });
+                //  send ajax jquery to ./deleteComment
+                $.ajax({
+                  type: "POST",
+                  url: "./deleteComment",
+                  data: {
+                    id: id,
+                    reason: reason
+                  },
+                  success: function(data) {
+                    if (data == "success") {
+                      alert("Comment sucesfully deleted!");
+                      window.location.reload();
+                    } else {
+                      alert("Something went wrong!" + data);
+                    }
+                  }
+                });
 
-                            }
-                            </script>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+              }
+              </script>
+            </ul>
+          </div>
         </div>
-        <div style="margin-top: 200px;">‏‏‎ ‎</div>
-    </main>
+      </div>
+    </div>
+    <div style="margin-top: 200px;">‏‏‎ ‎</div>
+  </main>
 
 
 </body>

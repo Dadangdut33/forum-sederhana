@@ -17,47 +17,47 @@ if (!isset($_SESSION['isAdmin'])) {
 ?>
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-    </script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <link rel="stylesheet" href="../index.css">
-    <link rel="icon" href="../favicon.ico">
-    <title>Post Tags</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+  </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <link rel="stylesheet" href="../index.css">
+  <link rel="icon" href="../favicon.ico">
+  <title>Post Tags</title>
 </head>
 
 <body>
-    <main class="center-vertical-horizontal">
-        <div class="container">
-            <div class="row bg-white">
-                <div class="panel panel-default" style="padding: 12px;">
-                    <div class="panel-heading">
-                        <a href="../index.php" class="btn btn-primary btn-sm">
-                            <i class="bi bi-arrow-left"></i> Go back home
-                        </a>
-                        <a href="./add_topic.php" class="btn btn-primary btn-sm">
-                            <i class="bi bi-plus"></i> Add new tag
-                        </a>
-                    </div>
-                    <div class="panel-body">
-                        <!-- echo table of tags -->
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Topic</th>
-                                    <th scope="col">Posts</th>
-                                    <th scope="col">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
+  <main class="center-vertical-horizontal">
+    <div class="container">
+      <div class="row bg-white">
+        <div class="panel panel-default" style="padding: 12px;">
+          <div class="panel-heading">
+            <a href="../" class="btn btn-primary btn-sm">
+              <i class="bi bi-arrow-left"></i> Go back home
+            </a>
+            <a href="./add_topic.php" class="btn btn-primary btn-sm">
+              <i class="bi bi-plus"></i> Add new tag
+            </a>
+          </div>
+          <div class="panel-body">
+            <!-- echo table of tags -->
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Topic</th>
+                  <th scope="col">Posts</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php
                                 // connect to db
                                 include '../connection.php';
 
@@ -98,34 +98,34 @@ if (!isset($_SESSION['isAdmin'])) {
                                     echo '</tr>';
                                 }
                                 ?>
-                            </tbody>
-                            <script>
-                            function deleteTag(id) {
-                                if (confirm("Are you sure you want to delete this topic?")) {
-                                    // send ajax request
-                                    $.ajax({
-                                        url: "./delete_topic",
-                                        method: "POST",
-                                        data: {
-                                            id: id
-                                        },
-                                        success: function(data) {
-                                            if (data == "success") {
-                                                // reload page
-                                                location.reload();
-                                            } else {
-                                                alert(data);
-                                            }
-                                        }
-                                    });
-                                }
-                            }
-                            </script>
-                    </div>
-                </div>
-            </div>
+              </tbody>
+              <script>
+              function deleteTag(id) {
+                if (confirm("Are you sure you want to delete this topic?")) {
+                  // send ajax request
+                  $.ajax({
+                    url: "./delete_topic",
+                    method: "POST",
+                    data: {
+                      id: id
+                    },
+                    success: function(data) {
+                      if (data == "success") {
+                        // reload page
+                        location.reload();
+                      } else {
+                        alert(data);
+                      }
+                    }
+                  });
+                }
+              }
+              </script>
+          </div>
         </div>
-    </main>
+      </div>
+    </div>
+  </main>
 
 </body>
 

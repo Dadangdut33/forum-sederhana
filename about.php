@@ -39,27 +39,27 @@ include './connection.php';
                 style="width: 100%;">
                 <select class="form-control form-control-lg bg-white bg-op-9 text-sm w-lg-50" data-toggle="select"
                   tabindex="-98" id="dynamic_select">
-                  <option value="./index.php"> All </option>
+                  <option value="./"> All </option>
                   <?php
                   // check for GET request named "topic"
                   if (isset($_GET['topic'])) {
                     // if found, get the value
                     $topic = $_GET['topic'];
 
-                    echo '<option value="./index.php?topic=' . $topic . '" selected hidden>' . $topic . '</option>';
+                    echo '<option value="./?topic=' . $topic . '" selected hidden>' . $topic . '</option>';
                   } else
                                     if (isset($_GET['by'])) {
                     // if found, get the value
                     $by = $_GET['by'];
 
-                    echo '<option value="./index.php?by=' . $by . '" selected hidden>Seeing post made by ' . $by . '</option>';
+                    echo '<option value="./?by=' . $by . '" selected hidden>Seeing post made by ' . $by . '</option>';
                   }
 
                   // get all topics from db
                   $sql = "SELECT * FROM topic";
                   $result = mysqli_query($conn, $sql);
                   while ($row = mysqli_fetch_assoc($result)) {
-                    echo '<option value="./index.php?topic=' . $row['name'] . ' "> ' . $row['name'] . '</option>';
+                    echo '<option value="./?topic=' . $row['name'] . ' "> ' . $row['name'] . '</option>';
                   }
                   ?>
                 </select>
@@ -156,18 +156,18 @@ include './connection.php';
                                 <hr class="my-0">
                                 <div class="row text-center d-flex flex-row op-7 mx-0">
                                     <div class="col-sm-6 col flex-ew text-center py-3 border-bottom mx-0"> <a
-                                            class="d-block lead font-weight-bold" href="./index.php?by=' . $_SESSION['username'] . '">' . $total . '</a> Posts </div>
+                                            class="d-block lead font-weight-bold" href="./?by=' . $_SESSION['username'] . '">' . $total . '</a> Posts </div>
                                     <div class="col-sm-6 col flex-ew text-center py-3 border-bottom mx-0"> <a
                                             class="d-block lead font-weight-bold" href="./profile/notification.php?user=' . $_SESSION['username'] . '">' . $totalNotif . '</a> Unread Notification </div>
                                 </div>
                                 <div class="row text-center d-flex flex-row op-7 mx-0">
                                 <div class="col-sm-6 col flex-ew text-center py-3 border-bottom mx-0"> <a
-                                        class="d-block lead font-weight-bold" href="./profile/index.php?user=' . $_SESSION['username'] . '">' . $_SESSION['username'] . '</a> User </div>';
+                                        class="d-block lead font-weight-bold" href="./profile/?user=' . $_SESSION['username'] . '">' . $_SESSION['username'] . '</a> User </div>';
 
                 // check isAdmin or not
                 if ($_SESSION['isAdmin'] == 1) {
                   echo '<div class="col-sm-6 col flex-ew text-center py-3 border-bottom mx-0"> <a
-                                        class="d-block lead font-weight-bold" href="./admin/index.php">Admin</a>Admin Menu</div>';
+                                        class="d-block lead font-weight-bold" href="./admin/">Admin</a>Admin Menu</div>';
                 } else {
                   echo '<div class="col-sm-6 col flex-ew text-center py-3 border-bottom mx-0"> <a
                                         class="d-block lead font-weight-bold" href=""></a></div></div>';
